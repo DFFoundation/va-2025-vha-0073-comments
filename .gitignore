@@ -1,0 +1,9 @@
+# Never commit credentials
+.env
+*.env
+secrets.json
+
+# OS / editor noise
+.DS_Store
+__pycache__/
+*.pyc

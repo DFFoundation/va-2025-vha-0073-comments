@@ -1,0 +1,1822 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Comment Browser: Reproductive Health Services Rule</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<style>
+:root{
+  --paper:#faf9f7; --panel:#ffffff; --ink:#17211f; --ink-2:#3b4a47;
+  --muted:#5a6a73; --dim:#6d7b86;
+  --rule:#e2e6e5; --rail-bg:#f4f7f7; --rail-line:#dbe3e5;
+  --verdigris:#26695c; --verdigris-soft:#eaf1ef;
+  --brass:#8a6a16; --brass-soft:#f6f1e2;
+  --slate:#41577a; --slate-soft:#eceff5;
+  --oppose:#2f6f3f; --support:#93323c; --neutralc:#6b7780; --mixed:#8a6a16;
+  --fig-inner:#e2ece8; --fig-inner-line:#cfdedb;
+  --c-sub:#26695c; --bg-sub:#e8f1ee;
+  --c-sec:#35796b; --bg-sec:#edf4f2;
+  --c-attr:#1b5346; --bg-attr:#e2edea;
+  --c-prov:#8a6a16; --bg-prov:#f6f1e1;
+  --c-arg:#9c7d2c; --bg-arg:#f8f4e9;
+  --c-asks:#6e5310; --bg-asks:#f1ecda;
+  --c-pos:#48596b; --bg-pos:#eceff3;
+  --c-fa:#5c6d7b; --bg-fa:#f0f3f5;
+  --c-ev:#3a4a58; --bg-ev:#e7ebef;
+  --shadow:0 1px 2px rgba(23,33,31,.05), 0 10px 28px -20px rgba(23,33,31,.4);
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --serif:Georgia,"Times New Roman",serif;
+  --ui:system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+  --maxw:1240px;
+}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+  --paper:#111817; --panel:#18211f; --ink:#e8edeb; --ink-2:#b8c4c1;
+  --muted:#93a3a0; --dim:#98a6a4;
+  --rule:#27332f; --rail-bg:#141d1b; --rail-line:#2a3633;
+  --verdigris:#6fbfa9; --verdigris-soft:#16241f;
+  --brass:#cda748; --brass-soft:#241f13;
+  --slate:#8ea6cc; --slate-soft:#181e28;
+  --oppose:#7cc08c; --support:#e08e97; --neutralc:#9aa7a4; --mixed:#cda748;
+  --fig-inner:#1e2c27; --fig-inner-line:#2b3f38;
+  --c-sub:#6fbfa9; --bg-sub:#16241f;
+  --c-sec:#89cfbc; --bg-sec:#1a2b25;
+  --c-attr:#57a793; --bg-attr:#121f1b;
+  --c-prov:#cda748; --bg-prov:#241f13;
+  --c-arg:#dcbb6b; --bg-arg:#2a2517;
+  --c-asks:#b08e33; --bg-asks:#1e1a10;
+  --c-pos:#93a8bb; --bg-pos:#181e28;
+  --c-fa:#a9bbcc; --bg-fa:#1c232e;
+  --c-ev:#7c91a5; --bg-ev:#141a22;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px -20px rgba(0,0,0,.8);
+}}
+:root[data-theme="dark"]{
+  --paper:#111817; --panel:#18211f; --ink:#e8edeb; --ink-2:#b8c4c1;
+  --muted:#93a3a0; --dim:#98a6a4;
+  --rule:#27332f; --rail-bg:#141d1b; --rail-line:#2a3633;
+  --verdigris:#6fbfa9; --verdigris-soft:#16241f;
+  --brass:#cda748; --brass-soft:#241f13;
+  --slate:#8ea6cc; --slate-soft:#181e28;
+  --oppose:#7cc08c; --support:#e08e97; --neutralc:#9aa7a4; --mixed:#cda748;
+  --fig-inner:#1e2c27; --fig-inner-line:#2b3f38;
+  --c-sub:#6fbfa9; --bg-sub:#16241f;
+  --c-sec:#89cfbc; --bg-sec:#1a2b25;
+  --c-attr:#57a793; --bg-attr:#121f1b;
+  --c-prov:#cda748; --bg-prov:#241f13;
+  --c-arg:#dcbb6b; --bg-arg:#2a2517;
+  --c-asks:#b08e33; --bg-asks:#1e1a10;
+  --c-pos:#93a8bb; --bg-pos:#181e28;
+  --c-fa:#a9bbcc; --bg-fa:#1c232e;
+  --c-ev:#7c91a5; --bg-ev:#141a22;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px -20px rgba(0,0,0,.8);
+}
+/* one hue per tag category; components read --fc / --fbg */
+[data-f="sub"]{--fc:var(--c-sub);--fbg:var(--bg-sub)}
+[data-f="sec"]{--fc:var(--c-sec);--fbg:var(--bg-sec)}
+[data-f="attr"]{--fc:var(--c-attr);--fbg:var(--bg-attr)}
+[data-f="pos"]{--fc:var(--c-pos);--fbg:var(--bg-pos)}
+[data-f="prov"]{--fc:var(--c-prov);--fbg:var(--bg-prov)}
+[data-f="arg"]{--fc:var(--c-arg);--fbg:var(--bg-arg)}
+[data-f="asks"]{--fc:var(--c-asks);--fbg:var(--bg-asks)}
+[data-f="fa"]{--fc:var(--c-fa);--fbg:var(--bg-fa)}
+[data-f="ev"]{--fc:var(--c-ev);--fbg:var(--bg-ev)}
+.fdot{width:8px;height:8px;border-radius:2px;background:var(--fc,var(--dim));flex:none}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font:400 16px/1.6 var(--ui);-webkit-font-smoothing:antialiased}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 clamp(1rem,3.5vw,2.2rem)}
+.topline{display:flex;justify-content:space-between;align-items:baseline;gap:.9rem;
+  flex-wrap:wrap;margin-bottom:.9rem}
+.topline .cap{color:var(--verdigris)}
+.proposal{font:500 .85rem/1 var(--ui);display:inline-flex;align-items:center;gap:.4rem;
+  text-decoration:none;color:var(--verdigris);border-bottom:1px solid var(--rail-line);
+  padding-bottom:2px;white-space:nowrap}
+.proposal:hover{border-bottom-color:var(--verdigris)}
+.proposal svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2}
+.rulelinks{display:flex;flex-direction:column;align-items:flex-end;gap:.5rem}
+.figures{display:flex;gap:.9rem;margin-top:1.6rem;flex-wrap:wrap}
+.fig-col{flex:1 1 190px;padding:.75rem 1rem .95rem 0}
+.fig-box{flex:2 1 360px;background:var(--verdigris-soft);border-radius:3px;
+  padding:.75rem 1.05rem .95rem}
+.fig-hair{border-bottom:1px solid var(--rule);margin:.62rem 0 .85rem}
+.fig-box .fig-hair{border-bottom-color:var(--fig-inner-line)}
+.fig-pair{display:flex;gap:1.2rem;flex-wrap:wrap}
+.fig-pair>div{flex:1 1 140px}
+.fig{display:block;font-family:var(--mono);font-size:1.6rem;line-height:1;
+  font-variant-numeric:tabular-nums;letter-spacing:-.02em;color:var(--ink)}
+.fig.dim{color:var(--muted)}
+.fig.accent{color:var(--verdigris);font-weight:700}
+.fig-label{display:block;font:500 .76rem/1.4 var(--ui);color:var(--muted);
+  margin-top:.44rem;max-width:20ch}
+.fig-label.accent{color:var(--verdigris);font-weight:640}
+.fignote{margin:1.5rem 0 0;padding-top:.9rem;border-top:1px solid var(--rule);
+  font:400 .875rem/1.65 var(--ui);color:var(--ink-2);max-width:92ch}
+.fignote b{font-weight:700;color:var(--ink)}
+.fignote a{font-weight:640;color:var(--verdigris)}
+.mode{display:flex;border:1px solid var(--rail-line);border-radius:3px;overflow:hidden;flex:none}
+.mode button{border:0;background:var(--paper);color:var(--muted);cursor:pointer;
+  padding:.55rem .7rem;font:600 .8rem/1 var(--ui)}
+.mode button+button{border-left:1px solid var(--rail-line)}
+.mode button[aria-pressed="true"]{background:var(--verdigris);color:var(--panel)}
+.shint{font:500 .79rem/1.5 var(--ui);color:var(--muted);margin-top:.55rem}
+.snip{margin-top:.55rem;padding:.5rem .65rem;border-radius:2px;background:var(--rail-bg);
+  border-left:2px solid var(--verdigris);font:400 .84rem/1.6 var(--ui);color:var(--ink-2)}
+.snip mark{background:var(--brass-soft);color:var(--brass);font-weight:660;
+  padding:.05rem .12rem;border-radius:2px}
+.hits{font:500 .73rem/1 var(--mono);color:var(--verdigris);margin-left:.4rem}
+
+/* ---------- record entries ---------- */
+.entry{background:var(--panel);border:1px solid var(--rule);border-radius:3px;margin-bottom:.55rem}
+.entry[open]{border-color:var(--rail-line);box-shadow:var(--shadow)}
+.ehead{list-style:none;cursor:pointer;display:flex;gap:.75rem;padding:.8rem .95rem;align-items:flex-start}
+.ehead::-webkit-details-marker{display:none}
+.ehead:hover{background:var(--rail-bg)}
+.stripe{width:3px;align-self:stretch;border-radius:2px;background:var(--rule);flex:none}
+.entry[data-pos="Oppose"] .stripe{background:var(--oppose)}
+.entry[data-pos="Support"] .stripe{background:var(--support)}
+.entry[data-pos="Mixed"] .stripe{background:var(--mixed)}
+.entry[data-pos="Neutral"] .stripe{background:var(--neutralc)}
+.emain{flex:1;min-width:0}
+.org{display:block;font:600 1.08rem/1.4 var(--serif);color:var(--ink)}
+.org.unnamed{color:var(--muted);font-style:italic;font-weight:500}
+.erow{display:flex;flex-wrap:wrap;align-items:center;gap:.3rem .55rem;margin-top:.28rem;
+  font:500 .84rem/1.55 var(--ui);color:var(--muted)}
+.erow .mono{font-variant-numeric:tabular-nums}
+.bull{width:3px;height:3px;border-radius:50%;background:var(--dim);display:inline-block}
+.runs{display:flex;flex-wrap:wrap;gap:.3rem .5rem;margin-top:.5rem}
+.run{display:inline-flex;align-items:center;gap:.25rem;flex-wrap:wrap}
+.runlabel{font:500 .69rem/1.4 var(--mono);letter-spacing:.07em;text-transform:uppercase;
+  color:var(--fc,var(--muted));margin-right:.15rem}
+.tg{border-radius:2px;padding:.2rem .45rem;font:600 .775rem/1.4 var(--ui);
+  background:var(--fbg,var(--rail-bg));color:var(--fc,var(--muted));border:1px solid transparent}
+.tg.hit{outline:1.5px solid currentColor}
+.tg-more{background:none;color:var(--muted);border-color:var(--rail-line)}
+.easide{display:flex;align-items:center;gap:.6rem;flex:none;padding-top:.1rem}
+.pagepill{font:500 .73rem/1 var(--mono);color:var(--muted);white-space:nowrap;
+  border:1px solid var(--rail-line);border-radius:2px;padding:.24rem .4rem}
+.chev{width:16px;height:16px;stroke:var(--dim);fill:none;stroke-width:2;transition:transform .18s}
+.entry[open] .chev{transform:rotate(180deg)}
+@media (prefers-reduced-motion:reduce){.chev{transition:none}}
+.ebody{padding:.2rem 1rem 1rem 1.75rem;border-top:1px solid var(--rule)}
+.groups{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:.9rem 1.4rem;
+  margin:.9rem 0 1rem}
+.group h4{margin:0 0 .4rem;font:500 .71rem/1.4 var(--mono);letter-spacing:.08em;
+  text-transform:uppercase;color:var(--fc,var(--muted))}
+.taglist{display:flex;flex-wrap:wrap;gap:.28rem}
+.facts{display:flex;flex-wrap:wrap;gap:.35rem 1.3rem;list-style:none;padding:0;margin:0 0 .95rem;
+  font:500 .86rem/1.55 var(--ui);color:var(--muted)}
+.facts b{color:var(--ink-2);font-weight:660}
+.actions{display:flex;flex-wrap:wrap;gap:.5rem}
+.btn{display:inline-flex;align-items:center;gap:.35rem;text-decoration:none;border-radius:3px;
+  padding:.45rem .7rem;font:640 .82rem/1 var(--ui);border:1px solid var(--rail-line);
+  background:var(--panel);color:var(--ink-2)}
+.btn:hover{background:var(--rail-bg);color:var(--ink)}
+.btn.primary{background:var(--verdigris);border-color:var(--verdigris);color:var(--panel)}
+.btn.primary:hover{opacity:.9;color:var(--panel)}
+.fulltext{margin-top:.9rem;border-top:1px solid var(--rule);padding-top:.7rem}
+.fulltext>summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:.35rem;
+  font:640 .82rem/1 var(--ui);color:var(--verdigris)}
+.fulltext>summary::-webkit-details-marker{display:none}
+.tick{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;transition:transform .18s}
+.fulltext[open] .tick{transform:rotate(90deg)}
+.body-text{margin-top:.7rem;max-height:28rem;overflow-y:auto;white-space:pre-wrap;
+  font:400 .92rem/1.75 var(--ui);color:var(--ink-2);background:var(--rail-bg);
+  border:1px solid var(--rail-line);border-radius:2px;padding:1rem 1.1rem;
+  max-width:74ch;text-wrap:pretty}
+.body-text mark{background:var(--brass-soft);color:var(--brass);font-weight:660}
+
+.num{font-variant-numeric:tabular-nums}
+.cap{font:500 .68rem/1.3 var(--mono);letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted)}
+h1{font-family:var(--serif);font-weight:600;
+   font-size:clamp(1.7rem,3.6vw,2.05rem);line-height:1.12;letter-spacing:-.012em;
+   margin:0;max-width:26ch;text-wrap:balance}
+p{margin:0}
+a{color:var(--verdigris)}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--verdigris);outline-offset:2px;border-radius:2px}
+
+/* ---------- masthead: scope first, provenance demoted ---------- */
+header{background:var(--panel);border-bottom:1px solid var(--rule);
+  padding:clamp(1.5rem,3.6vw,2.4rem) 0 1.5rem}
+.scope{font-size:1.02rem;line-height:1.5;color:var(--verdigris);
+  margin:.45rem 0 0;max-width:70ch}
+.scope b{font-weight:660;color:var(--ink)}
+.def{border:0;background:none;padding:0;cursor:help;font:inherit;color:inherit;
+  font-weight:660;border-bottom:1.5px dotted var(--verdigris)}
+.def:hover{background:var(--verdigris-soft)}
+.prov{display:flex;flex-wrap:wrap;gap:.35rem 1.4rem;margin-top:1rem;
+  font:500 .82rem/1.5 var(--ui);color:var(--muted)}
+.prov b{font-weight:660;color:var(--ink-2)}
+
+/* ---------- popover ---------- */
+.pop{position:fixed;inset:0;display:none;place-items:center;padding:1.2rem;
+  background:rgba(15,22,20,.45);z-index:60}
+.pop[open]{display:grid}
+.popbox{background:var(--panel);border:1px solid var(--rule);border-radius:4px;
+  max-width:46ch;padding:1.3rem 1.4rem;box-shadow:var(--shadow)}
+.popbox h3{margin:.35rem 0 .5rem;font:600 1.1rem/1.3 var(--serif)}
+.popbox p{font-size:.92rem;line-height:1.6;color:var(--ink-2)}
+.popbox button{margin-top:1.1rem;border:1px solid var(--rule);background:var(--rail-bg);
+  border-radius:3px;padding:.4rem .8rem;font:600 .82rem/1 var(--ui);cursor:pointer}
+
+/* ---------- search toolbar ---------- */
+.tools{position:sticky;top:0;z-index:40;background:var(--panel);
+  border-bottom:1px solid var(--rule);padding:.85rem 0;box-shadow:var(--shadow)}
+.searchrow{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap}
+.sbox{flex:1 1 22rem;min-width:15rem;position:relative;display:flex;align-items:center}
+.sbox svg{position:absolute;left:.7rem;width:16px;height:16px;color:var(--dim);pointer-events:none}
+.sbox input{width:100%;padding:.62rem .8rem .62rem 2.2rem;border-radius:3px;
+  border:1px solid var(--rail-line);background:var(--paper);color:var(--ink);
+  font:400 .95rem/1.3 var(--ui)}
+.sbox input::placeholder{color:var(--dim)}
+.count{font:500 .92rem/1 var(--mono);white-space:nowrap;font-variant-numeric:tabular-nums}
+.count span{color:var(--muted);font-weight:500}
+.clearall{border:1px solid var(--rail-line);background:var(--paper);border-radius:3px;
+  padding:.5rem .75rem;font:600 .82rem/1 var(--ui);cursor:pointer;color:var(--ink-2)}
+.chips{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.65rem}
+.chips:empty{display:none}
+.chip{display:inline-flex;align-items:center;gap:.4rem;border-radius:2px;cursor:pointer;
+  padding:.28rem .5rem .28rem .55rem;font:600 .78rem/1.2 var(--ui);border:1px solid transparent}
+.chip .x{font-weight:700;opacity:.65}
+.chip:hover .x{opacity:1}
+.chip{background:var(--fbg,var(--rail-bg));color:var(--fc,var(--ink-2));border-color:var(--fc,var(--rail-line))}
+
+/* ---------- layout ---------- */
+.cols{display:grid;grid-template-columns:19.5rem minmax(0,1fr);gap:2rem;
+  align-items:start;padding:1.6rem 0 3rem}
+@media (max-width:900px){.cols{grid-template-columns:1fr}}
+
+/* ---------- rail ---------- */
+.rail{position:sticky;top:5.2rem;max-height:calc(100vh - 6.4rem);overflow-y:auto;
+  padding-right:.3rem}
+@media (max-width:900px){.rail{position:static;max-height:none}}
+.fam{margin-bottom:1.15rem;border:1px solid var(--rail-line);border-radius:3px;
+  background:var(--rail-bg);overflow:hidden}
+.famhead{display:flex;align-items:center;gap:.5rem;padding:.6rem .8rem;
+  border-bottom:1px solid var(--rail-line);border-left:3px solid var(--fam-c);
+  background:var(--fam-bg)}
+.famhead .cap{color:var(--fam-c);letter-spacing:.13em}
+.fam{--fam-c:var(--ink-2);--fam-bg:var(--rail-bg)}
+details.fct{border-top:1px solid var(--rail-line)}
+details.fct:first-of-type{border-top:0}
+details.fct>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:.5rem;
+  padding:.55rem .8rem;font:640 .88rem/1.4 var(--ui);color:var(--ink-2)}
+details.fct>summary::-webkit-details-marker{display:none}
+details.fct>summary:hover{background:var(--panel)}
+.tw{margin-left:auto;color:var(--dim);font-size:.72rem;transition:transform .15s}
+details.fct[open] .tw{transform:rotate(90deg)}
+.nsel{background:var(--fc);color:var(--panel);border-radius:99px;
+  padding:.05rem .4rem;font:500 .68rem/1.5 var(--mono)}
+.fbody{padding:.15rem .55rem .6rem}
+.ffilter{width:100%;margin:.1rem 0 .4rem;padding:.32rem .5rem;border-radius:2px;
+  border:1px solid var(--rail-line);background:var(--panel);color:var(--ink);
+  font:400 .8rem/1.3 var(--ui)}
+.opt{display:flex;align-items:center;gap:.5rem;width:100%;text-align:left;cursor:pointer;
+  border:0;background:none;border-radius:2px;padding:.3rem .3rem;
+  font:500 .865rem/1.45 var(--ui);color:var(--ink-2)}
+.opt:hover{background:var(--panel);color:var(--ink)}
+.opt .bx{width:13px;height:13px;flex:none;border:1.5px solid var(--rail-line);border-radius:2px;
+  background:var(--panel);display:grid;place-items:center;font-size:9px;color:var(--panel)}
+.opt[aria-pressed="true"]{color:var(--fc);font-weight:660}
+.opt[aria-pressed="true"] .bx{background:var(--fc);border-color:var(--fc)}
+.opt .lb{flex:1;min-width:0}
+.opt .ct{color:var(--muted);font:500 .78rem/1 var(--mono);font-variant-numeric:tabular-nums}
+.opt[aria-pressed="true"] .ct{color:var(--fc)}
+.more{border:0;background:none;cursor:pointer;padding:.3rem;margin-top:.15rem;
+  font:640 .78rem/1 var(--ui);color:var(--fc)}
+
+/* ---------- results ---------- */
+.note{font:500 .8rem/1.5 var(--ui);color:var(--muted);
+  border-left:2px solid var(--brass);padding-left:.7rem;margin-bottom:1rem}
+.card{border:1px solid var(--rule);border-radius:3px;background:var(--panel);
+  padding:.85rem 1rem;margin-bottom:.6rem}
+.chead{display:flex;align-items:baseline;gap:.6rem;flex-wrap:wrap}
+.chead h3{margin:0;font:660 1rem/1.35 var(--ui);flex:1 1 20ch;min-width:0}
+.pos{border-radius:2px;padding:.14rem .45rem;font:500 .7rem/1.5 var(--mono);
+  letter-spacing:.04em;text-transform:uppercase;white-space:nowrap;border:1px solid}
+.pos.Oppose{color:var(--oppose);border-color:var(--oppose)}
+.pos.Support{color:var(--support);border-color:var(--support)}
+.pos.Mixed{color:var(--mixed);border-color:var(--mixed)}
+.pos.Neutral{color:var(--neutralc);border-color:var(--neutralc)}
+.meta{font:500 .8rem/1.5 var(--ui);color:var(--muted);margin-top:.25rem}
+.tags{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.55rem}
+.tag{border-radius:2px;padding:.18rem .42rem;font:600 .73rem/1.35 var(--ui);
+  border:1px solid var(--rail-line);background:var(--rail-bg);color:var(--muted)}
+.tag.on{outline:1.5px solid currentColor}
+.empty{border:1px dashed var(--rule);border-radius:3px;padding:2rem 1rem;text-align:center;
+  color:var(--muted);font-size:.92rem}
+
+/* ---------- methodology ---------- */
+.prose{max-width:76ch;margin-bottom:2.1rem}
+.prose h3{margin:1.35rem 0 .45rem;font:600 1.04rem/1.3 var(--serif);color:var(--ink)}
+.prose h3:first-child{margin-top:0}
+.prose p{font:400 .92rem/1.8 var(--ui);color:var(--ink-2);margin:0 0 .8rem;text-wrap:pretty}
+.prose b{font-weight:660;color:var(--ink)}
+.prose code{font:500 .84em var(--mono);background:var(--rail-bg);border:1px solid var(--rail-line);border-radius:2px;padding:.05rem .28rem}
+#method{border-top:1px solid var(--rule);background:var(--paper);padding:2rem 0 3rem}
+.methodwrap{border:1px solid var(--rule);border-radius:3px;background:var(--panel);
+  overflow:hidden}
+.methodwrap>summary{list-style:none;cursor:pointer;display:flex;align-items:center;
+  gap:.9rem;padding:1rem 1.15rem}
+.methodwrap>summary::-webkit-details-marker{display:none}
+.methodwrap>summary:hover{background:var(--rail-bg)}
+.methodwrap>summary h2{margin:0;font:600 1.2rem/1.25 var(--serif);letter-spacing:-.012em}
+.methodwrap>summary .cap{color:var(--muted)}
+.mw-hint{margin-left:auto;display:flex;align-items:center;gap:.45rem;
+  font:600 .8rem/1 var(--ui);color:var(--verdigris)}
+.methodwrap[open]>summary{border-bottom:1px solid var(--rule)}
+.methodwrap[open] .mw-hint .lbl::after{content:"Hide"}
+.methodwrap:not([open]) .mw-hint .lbl::after{content:"Show"}
+.mchev{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;
+  transition:transform .18s}
+.methodwrap[open] .mchev{transform:rotate(180deg)}
+@media (prefers-reduced-motion:reduce){.mchev{transition:none}}
+details.sub{border-top:1px solid var(--rule)}
+details.sub:first-child{border-top:0}
+details.sub>summary{list-style:none;cursor:pointer;display:flex;align-items:center;
+  gap:.55rem;padding:.85rem 1.15rem;font:600 1rem/1.3 var(--serif);color:var(--ink)}
+details.sub>summary::-webkit-details-marker{display:none}
+details.sub>summary:hover{background:var(--rail-bg)}
+.schev{width:13px;height:13px;stroke:var(--dim);fill:none;stroke-width:2.2;
+  transition:transform .18s;flex:none}
+details.sub[open] .schev{transform:rotate(90deg)}
+@media (prefers-reduced-motion:reduce){.schev{transition:none}}
+.sub-body{padding:0 1.15rem 1.2rem}
+#method h2{font:600 1.35rem/1.2 var(--serif);letter-spacing:-.012em;margin:.4rem 0 1.1rem}
+.defs{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:1.3rem 2rem}
+.defs h4{margin:0 0 .32rem;font:600 1rem/1.35 var(--serif)}
+.defs p{font-size:.9rem;line-height:1.7;color:var(--ink-2);max-width:52ch;text-wrap:pretty}
+.defs .num{font-weight:660}
+
+.loading[hidden]{display:none}
+.loading{display:inline-flex;align-items:center;gap:.45rem;font:600 .8rem/1 var(--ui);color:var(--brass)}
+.spin{width:11px;height:11px;border:2px solid var(--brass);border-right-color:transparent;
+  border-radius:50%;animation:sp .7s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.spin{animation-duration:2.4s}}
+.more2{display:block;width:100%;margin-top:.8rem;padding:.65rem;cursor:pointer;
+  border:1px solid var(--rail-line);background:var(--panel);color:var(--ink-2);
+  border-radius:3px;font:640 .85rem/1 var(--ui)}
+.more2:hover{background:var(--rail-bg);color:var(--ink)}
+.perf{font:500 .77rem/1.5 var(--mono);color:var(--dim);margin-top:.4rem}
+/* --- Democracy Forward mark on the docket line (matches the EEOC browser) --- */
+.brandline{display:inline-flex;align-items:center;gap:.5rem}
+.dfmark{width:16px;height:16px;border-radius:2px;opacity:.75;flex:none;display:block}
+/* ==================================================================
+   DF BLUE -- accent only, sans labels
+   The accent moves off verdigris green onto #1E3A6E, the blue the DF
+   regulatory tracker uses for text on white (9:1), and the Commenter
+   attributes family comes with it. Deliberately NOT recoloured: the
+   other eight tag families and the position stripes. They
+   are what keeps the grid readable, and taking Oppose to blue also
+   left Oppose/Support reading blue-vs-red.
+   The DF mark stays as it is on the live dashboard: the 16px avatar
+   on the eyebrow line.
+   ================================================================== */
+:root{
+  --verdigris:#1E3A6E; --verdigris-soft:#E8EDF8;
+  --fig-inner:#E8EDF8; --fig-inner-line:#CFDAEE;
+  /* Commenter attributes joins the accent. It takes the accent blue
+     itself rather than a near-miss, since the slate families (position,
+     funding agency, evidence) already occupy the muted blue-greys and a
+     third blue-grey would not read as a separate family. */
+  --c-attr:#1E3A6E; --bg-attr:#E8EDF8;
+  /* Position: Oppose takes steel rather than the accent navy, so position
+     stays a separate dimension from anything interactive. Support moves
+     off red onto the tracker's amber -- blue-vs-red read partisan, and
+     reversed at that, since it is the opposition that would have been
+     blue. Both drive the card's left stripe and its top-right pill. */
+  --oppose:#2E5C8A; --support:#B45309;
+}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+  --verdigris:#8FB3E8; --verdigris-soft:#16203A;
+  --fig-inner:#16203A; --fig-inner-line:#28375C;
+  --c-attr:#8FB3E8; --bg-attr:#16203A;
+  --oppose:#7CA3D4; --support:#E9A45C;
+}}
+:root[data-theme="dark"]{
+  --verdigris:#8FB3E8; --verdigris-soft:#16203A;
+  --fig-inner:#16203A; --fig-inner-line:#28375C;
+  --c-attr:#8FB3E8; --bg-attr:#16203A;
+  --oppose:#7CA3D4; --support:#E9A45C;
+}
+
+/* --- labels and figures off the typewriter face -------------------
+   The mono was doing two jobs: tabular alignment on the numbers and a
+   smallcaps texture on the labels. font-variant-numeric covers the
+   first, so the face was only carrying the second. Repointing the
+   token catches every use; real code keeps a real monospace. Sans
+   reads lighter and wider, so labels take a weight up and lose some
+   tracking. ------------------------------------------------------- */
+:root{ --mono:var(--ui) }
+.prose code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.cap{font-weight:600;letter-spacing:.09em}
+.runlabel{font-weight:600;letter-spacing:.075em}
+.group h4{font-weight:600;letter-spacing:.075em}
+.fig{font-weight:700;letter-spacing:-.015em}
+.count,.pagepill,.hits,.opt .ct,.perf{font-weight:600}
+.count,.opt .ct{font-variant-numeric:tabular-nums}
+
+/* --- position moves to the card's top right ----------------------- */
+.easide .pos{font-size:.68rem;letter-spacing:.07em;font-weight:600;
+  padding:.24rem .5rem;border-radius:2px}
+.easide .pos.Neutral{color:var(--neutralc);border-color:var(--neutralc)}
+
+
+/* --- contact ------------------------------------------------------ */
+.contact{border-top:1px solid var(--rule);margin-top:2.4rem;padding:1.4rem 0 2.8rem}
+.contact p{font:400 .9rem/1.7 var(--ui);color:var(--ink-2);margin:0}
+.contact a{font-weight:640}
+
+/* ==================================================================
+   VA-2025-VHA-0073 additions. Everything above is the OMB-2026-0034
+   browser's stylesheet, carried over unchanged; what follows only adds
+   the pieces this docket needs (argument views,
+   document pop-up) and one token change, noted below.
+   ================================================================== */
+
+/* Position is an ordered scale (Oppose ... Support), so its bars are a
+   diverging pair with a neutral grey midpoint. Mixed therefore leaves
+   brass, which sat 2-9 dE from the amber Support pole and could not be
+   told apart under deuteranopia. Neutral or technical takes a lighter
+   grey step. Badges keep readable text greys. */
+:root{--mixed:#6b7780;--neutral-bar:#b3bcc0;
+  --gap-bg:#fbf7ec;--gap-line:#d9c99a;--proto-bg:#f6f1e2;--proto-line:#e3d6ac}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+  --mixed:#8b9794;--neutral-bar:#4f5b58;
+  --gap-bg:#1d1a12;--gap-line:#4a3f22;--proto-bg:#241f13;--proto-line:#4a3f22;
+}}
+:root[data-theme="dark"]{
+  --mixed:#8b9794;--neutral-bar:#4f5b58;
+  --gap-bg:#1d1a12;--gap-line:#4a3f22;--proto-bg:#241f13;--proto-line:#4a3f22;
+}
+.entry[data-pos="Neutral"] .stripe{background:var(--neutral-bar)}
+
+body{overflow-x:clip}
+.cols>.rail,.cols>main{min-width:0}
+.opt .lb{overflow-wrap:anywhere}
+.tools{top:var(--proto-h,0px)}
+@media (max-width:900px){.tools{position:static;box-shadow:none}}
+.rail{top:calc(var(--proto-h,0px) + var(--tools-h,4.6rem) + 1rem);
+  max-height:calc(100vh - var(--proto-h,0px) - var(--tools-h,4.6rem) - 2rem)}
+@media (max-width:900px){.rail{top:auto;max-height:none}}
+.viewsw button{padding:.55rem .8rem}
+.csvbtn{border:1px solid var(--rail-line);background:var(--paper);border-radius:3px;
+  padding:.5rem .75rem;font:600 .82rem/1 var(--ui);cursor:pointer;color:var(--ink-2);
+  display:inline-flex;align-items:center;gap:.35rem}
+.csvbtn:hover{background:var(--rail-bg);color:var(--ink)}
+.csvbtn svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2}
+@media (max-width:600px){.sbox{flex-basis:100%;min-width:0}}
+
+/* ---------- rail: argument facet grouped by section ---------- */
+.chips[hidden],.spin[hidden],.rail[hidden]{display:none}
+.cols.norail{grid-template-columns:minmax(0,1fr)}
+.cols.norail>.rail{display:none}
+.qfoot{padding:0 .95rem .55rem calc(.95rem + 3px + .75rem)}
+.dquotes{margin-top:.9rem;border-top:1px solid var(--rule);padding-top:.5rem}
+.dquotes .qfoot{padding:0}
+.qtog{border:0;background:none;padding:.25rem 0;cursor:pointer;display:inline-flex;align-items:center;gap:.4rem;
+  font:640 .8rem/1.2 var(--ui);color:var(--verdigris)}
+.qtog:hover{text-decoration:underline}
+.qtog .car{display:inline-block;font-size:.95rem;line-height:1;transition:transform .15s}
+.qtog[aria-expanded="true"] .car{transform:rotate(180deg)}
+@media (prefers-reduced-motion:reduce){.qtog .car{transition:none}}
+.qlist{padding:0 .95rem .95rem calc(.95rem + 3px + .75rem)}
+.qlist[hidden]{display:none}
+.exlab{font-weight:640;color:var(--muted)}
+.argtop{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:1.5rem;align-items:start;margin-top:1rem}
+.argtop .vacol{position:sticky;top:7.5rem}
+.argtop .vacol .vapanel{margin:0;max-height:calc(100vh - 11rem);overflow:auto}
+@media (max-width:900px){.argtop{grid-template-columns:1fr}.argtop .vacol{position:static}
+  .argtop .vacol .vapanel{max-height:none}}
+.colh{margin:0 0 .75rem;font:600 1.15rem/1.3 var(--serif);color:var(--ink)}
+.lside:first-of-type h4{margin-top:0}
+.lside h4,.colsub{margin:0 0 .5rem;font:600 .72rem/1.3 var(--ui);letter-spacing:.07em;text-transform:uppercase;color:var(--muted);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lside+.lside h4{margin-top:1rem}
+.colsub a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+.leads .lnote,.leads .noleads{margin:0 0 .8rem;color:var(--muted);font-size:.85rem;line-height:1.5}
+.lside h4{margin:1rem 0 .5rem;font:600 .72rem/1.3 var(--ui);letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.lead{display:flex;gap:.65rem;background:var(--panel);border:1px solid var(--rule);border-radius:3px;
+  padding:.7rem .8rem;margin-bottom:.55rem;cursor:pointer}
+.lead:hover{border-color:var(--rail-line);box-shadow:var(--shadow)}
+.lrank{flex:none;width:1.35rem;height:1.35rem;border-radius:99px;display:grid;place-items:center;margin-top:.05rem;
+  font:600 .72rem/1 var(--mono);background:var(--rail-bg);color:var(--muted)}
+.lbody{flex:1;min-width:0}
+.lver{display:block;font:640 .88rem/1.35 var(--ui);color:var(--ink);margin-bottom:.3rem}
+.lead blockquote.q{margin:.15rem 0 .2rem;font-size:.86rem;line-height:1.55;
+  display:-webkit-box;-webkit-line-clamp:6;-webkit-box-orient:vertical;overflow:hidden}
+.lead blockquote.q.open{display:block;-webkit-line-clamp:unset;overflow:visible}
+.qmore{border:0;background:none;padding:0;margin:0 0 .45rem;cursor:pointer;font:600 .76rem/1.4 var(--ui);color:var(--verdigris)}
+.qmore:hover{text-decoration:underline}
+.lwho{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;font-size:.85rem}
+.unrev{font:600 .66rem/1 var(--ui);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);
+  border:1px dashed var(--rail-line);border-radius:2px;padding:.2rem .35rem}
+.lalso{margin-top:.35rem;font-size:.82rem;color:var(--muted)}
+.linkish{border:0;background:none;padding:0;color:var(--verdigris);cursor:pointer;font:inherit;text-decoration:underline}
+.lva{margin-top:.6rem;border-left:3px solid var(--rail-line);padding:.1rem 0 .1rem .7rem}
+.lva p{margin:.2rem 0;font-size:.86rem;line-height:1.5}
+.lva.none p:first-of-type{font-weight:600}
+.lva .lvn{color:var(--muted);font-size:.8rem}
+.allf{margin-top:1.4rem;border-top:1px solid var(--rule);padding-top:.6rem}
+.allf>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:.5rem;padding:.4rem 0;
+  font:600 1rem/1.3 var(--serif);color:var(--ink)}
+.allf>summary::-webkit-details-marker{display:none}
+.allf>summary .tw{font-size:.75rem;color:var(--dim);transition:transform .15s}
+.allf[open]>summary .tw{transform:rotate(90deg)}
+.allf>summary{justify-content:flex-start;text-align:left}
+.allf>summary .tw{margin:0}
+@media (prefers-reduced-motion:reduce){.allf>summary .tw{transition:none}}
+.gloss{margin:0;display:grid;grid-template-columns:minmax(9rem,max-content) 1fr;gap:.45rem 1rem}
+.gloss dt{font:640 .86rem/1.5 var(--ui);color:var(--ink)}
+.gloss dd{margin:0;font:400 .86rem/1.55 var(--ui);color:var(--ink-2)}
+@media (max-width:600px){.gloss{grid-template-columns:1fr}.gloss dd{margin-bottom:.4rem}}
+.vatag{display:inline-block;font:640 .68rem/1.3 var(--ui);letter-spacing:.04em;text-transform:uppercase;
+  color:var(--verdigris);border:1px solid var(--verdigris);border-radius:2px;padding:.12rem .35rem}
+.vaon{margin-top:.55rem;border-left:3px solid var(--verdigris);padding:.15rem 0 .15rem .65rem}
+.vaon p{margin:.3rem 0 0;font:400 .85rem/1.5 var(--ui);color:var(--ink-2)}
+.asect{border-top:1px solid var(--rule)}
+.asect:last-of-type{border-bottom:1px solid var(--rule)}
+.asect>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:.75rem;padding:.8rem .2rem}
+.asect>summary::-webkit-details-marker{display:none}
+.asect>summary:hover{background:var(--rail-bg)}
+.asect>summary .tw{font-size:.75rem;color:var(--dim);transition:transform .15s;flex:none}
+.asect[open]>summary .tw{transform:rotate(90deg)}
+.asect .ash{flex:1;min-width:0;display:flex;flex-direction:column;gap:.15rem}
+.asect .ash .cap{color:var(--muted)}
+.asect .at{font:600 1.02rem/1.3 var(--serif);color:var(--ink)}
+.asect .asn{flex:none;font:500 .8rem/1.3 var(--ui);color:var(--muted);white-space:nowrap}
+.asect[open]>summary{border-bottom:1px solid var(--rule)}
+.asect .arows{margin:.4rem 0 1rem}
+.asect.gaphead .ash .cap{color:var(--brass)}
+@media (max-width:600px){.asect>summary{flex-wrap:wrap}.asect .asn{width:100%;padding-left:1.4rem}}
+@media (prefers-reduced-motion:reduce){.asect>summary .tw{transition:none}}
+a.entry.acard{display:block;text-decoration:none;color:inherit}
+.entry.acard .org{font-size:1rem}
+.entry.acard.zero{opacity:.55}
+.entry.acard .chev.side{transform:none}
+.secchips{display:flex;flex-wrap:wrap;gap:.3rem}
+.secchip{border:1px solid var(--rail-line);background:var(--panel);border-radius:99px;padding:.28rem .62rem;cursor:pointer;
+  font:600 .76rem/1 var(--ui);color:var(--ink-2)}
+.secchip[aria-pressed="true"]{background:var(--verdigris);border-color:var(--verdigris);color:var(--panel)}
+.ixtop{display:flex;flex-wrap:wrap;gap:.6rem 1rem;align-items:center;justify-content:space-between;margin:1rem 0 .6rem}
+.secdiv{margin:1.3rem 0 .5rem;font:600 .72rem/1.4 var(--ui);letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.secdiv span{color:var(--ink-2)}
+.secdiv.gap span{color:var(--brass)}
+.gapnote p{margin:0 0 .6rem;font:400 .84rem/1.55 var(--ui);color:var(--muted);max-width:78ch}
+.fig-sub{display:block;margin-top:.3rem;font:500 .8rem/1.4 var(--ui);color:var(--muted)}
+.fig-three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:700px){.fig-three{grid-template-columns:1fr}}
+.corpus{margin:.7rem 0 0;display:grid;grid-template-columns:max-content 1fr;gap:.3rem 1rem;max-width:62rem}
+.corpus dt{font:600 .72rem/1.9 var(--ui);letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.corpus dd{margin:0;font:400 1rem/1.6 var(--ui);color:var(--ink-2)}
+@media (max-width:600px){.corpus{grid-template-columns:1fr;gap:0}.corpus dd{margin-bottom:.45rem}}
+.figcorp{margin:.55rem 0 0;display:grid;grid-template-columns:max-content 1fr;gap:.25rem .55rem;align-items:baseline}
+.figcorp dt{font:700 .95rem/1.4 var(--ui);color:var(--ink);text-align:right}
+.figcorp dd{margin:0;font:400 .82rem/1.45 var(--ui);color:var(--ink-2)}
+.scope a{color:var(--verdigris);font-weight:600;text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
+.fig-wide{flex:1 1 100%}
+.fig-wide .figcorp{grid-template-columns:max-content minmax(0,1fr) max-content minmax(0,1fr);column-gap:.55rem;row-gap:.25rem}
+.fig-wide .figcorp dd{padding-right:1.5rem}
+@media (max-width:800px){.fig-wide .figcorp{grid-template-columns:max-content 1fr}.fig-wide .figcorp dd{padding-right:0}}
+.fig.fig-sm{font-size:1.1rem;margin-top:.5rem}
+.ix-total{display:flex;align-items:baseline;gap:.6rem;flex-wrap:wrap}
+.ix-total .fig-label{margin:0}
+.ix-split{display:flex;gap:3px;height:10px;margin:.85rem 0 .55rem;border-radius:2px;overflow:hidden}
+.ix-split .seg{display:block;min-width:4px}
+.ix-split .seg.org{background:var(--verdigris)}
+.ix-split .seg.ind{background:var(--verdigris);opacity:.45}
+.ix-parts{display:flex;gap:3px}
+.ix-parts .part{min-width:0;padding-right:.9rem}
+.ix-parts .pn{display:block;font:600 .9rem/1.35 var(--ui);color:var(--ink)}
+.ix-parts .pn b{font-weight:700}
+.ix-parts .pd{display:block;margin-top:.15rem;font:400 .8rem/1.45 var(--ui);color:var(--ink-2)}
+@media (max-width:600px){.ix-parts{flex-direction:column;gap:.5rem}.ix-parts .part{flex:none!important}}
+.osub{border-top:1px solid var(--rail-line)}
+.osub:first-child{border-top:0}
+.osub>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:.45rem;
+  padding:.45rem .3rem;font:600 .8rem/1.3 var(--ui);color:var(--ink-2)}
+.osub>summary::-webkit-details-marker{display:none}
+.osub>summary:hover{background:var(--panel);color:var(--ink)}
+.osub>summary .tw{font-size:.7rem;color:var(--dim);transition:transform .15s}
+.osub[open]>summary .tw{transform:rotate(90deg)}
+.osub>summary .sn{flex:1;min-width:0}
+.osub>summary .sc{color:var(--muted);font:500 .74rem/1 var(--mono)}
+.osub>summary .nsel{position:static}
+.osub>.opt{padding-left:1.25rem}
+@media (prefers-reduced-motion:reduce){.osub>summary .tw{transition:none}}
+.osect{font:600 .68rem/1.35 var(--ui);letter-spacing:.07em;text-transform:uppercase;
+  color:var(--muted);margin:.55rem .3rem .15rem}
+.osect:first-child{margin-top:.15rem}
+.opt .oc{font-weight:700;color:var(--fc);margin-right:.25rem}
+
+/* ---------- comment cards ---------- */
+.entry{overflow-wrap:anywhere}
+.entry .ehead{cursor:pointer}
+.orgbtn{border:0;background:none;padding:0;margin:0;text-align:left;cursor:pointer;
+  font:600 1.08rem/1.4 var(--serif);color:var(--ink)}
+.orgbtn:hover{text-decoration:underline;text-decoration-color:var(--rail-line);text-underline-offset:3px}
+a.tg{text-decoration:none;display:inline-block;max-width:100%}
+a.tg:hover{border-color:var(--fc)}
+a.tg .tl{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:26ch;font-weight:500}
+.tg .tc{font-weight:700}
+.excerpt{margin-top:.45rem;font:400 .86rem/1.6 var(--ui);color:var(--ink-2);
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.excerpt mark,.q mark,.body-text mark{background:var(--brass-soft);color:var(--brass);font-weight:660}
+.pos.None,.pos.stat{color:var(--muted);border-color:var(--rail-line);border-style:dashed}
+.fam-n{font-weight:640;color:var(--ink-2)}
+
+/* ---------- argument index ---------- */
+.ixtop{display:flex;flex-wrap:wrap;gap:.7rem 1.2rem;align-items:center;margin-bottom:.6rem}
+.ixtop .lbl{font:600 .78rem/1 var(--ui);color:var(--muted)}
+.legend{display:flex;flex-wrap:wrap;gap:.3rem 1rem;font:500 .8rem/1.4 var(--ui);color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:.35rem}
+.legend i{width:10px;height:10px;border-radius:2px;display:inline-block}
+.k-opp{background:var(--oppose)} .k-mix{background:var(--mixed)}
+.k-neu{background:var(--neutral-bar)} .k-sup{background:var(--support)}
+.sect{margin:1.6rem 0 .55rem}
+.sect:first-of-type{margin-top:.9rem}
+.sect h3{margin:.15rem 0 0;font:600 1.08rem/1.3 var(--serif);color:var(--ink)}
+.sect .sn{font:500 .8rem/1.5 var(--ui);color:var(--muted);margin-top:.15rem}
+.gaphead{border-left:3px solid var(--brass);padding:.15rem 0 .15rem .8rem}
+.gaphead .cap{color:var(--brass)}
+.gaphead p{font:400 .87rem/1.65 var(--ui);color:var(--ink-2);max-width:78ch;margin-top:.35rem}
+.arows{border:1px solid var(--rule);border-radius:3px;background:var(--panel)}
+.arows.gapset{border:1px dashed var(--gap-line);background:var(--gap-bg)}
+.arow,.ahdr{display:grid;grid-template-columns:4.2rem minmax(0,1fr) 3.2rem 11.5rem 7.4rem;
+  gap:.3rem 1rem;align-items:center;padding:.62rem .95rem}
+.arow{text-decoration:none;color:var(--ink);border-top:1px solid var(--rule)}
+.arows.gapset .arow{border-top-color:var(--gap-line)}
+.arow:first-child{border-top:0}
+.arow:hover{background:var(--rail-bg)}
+.arows.gapset .arow:hover{background:var(--panel)}
+.ahdr{padding-top:0;padding-bottom:.3rem;font:600 .68rem/1.3 var(--ui);letter-spacing:.07em;
+  text-transform:uppercase;color:var(--muted)}
+.ahdr .r{text-align:right}
+.acode{font:700 .82rem/1.3 var(--ui);color:var(--ink-2);font-variant-numeric:tabular-nums}
+.alabel{font:600 .93rem/1.4 var(--ui);min-width:0;overflow-wrap:anywhere}
+.alabel .gtag{display:inline-block;margin-left:.4rem;font:600 .66rem/1.4 var(--ui);letter-spacing:.06em;
+  text-transform:uppercase;color:var(--brass);border:1px dashed var(--gap-line);border-radius:2px;
+  padding:0 .3rem;vertical-align:1px}
+.acount{font:700 1.02rem/1 var(--ui);text-align:right;font-variant-numeric:tabular-nums}
+.arow.zero{color:var(--dim)}
+.arow.zero .acode,.arow.zero .alabel{color:var(--dim);font-weight:500}
+.arow.zero .acount{color:var(--dim);font-weight:500}
+.track{display:block;width:100%;height:8px}
+.sbar{display:flex;gap:2px;height:8px;min-width:0}
+.sbar span{display:block;height:100%;min-width:2px}
+.sbar span:last-child{border-radius:0 4px 4px 0}
+.sbar .o{background:var(--oppose)} .sbar .m{background:var(--mixed)}
+.sbar .n{background:var(--neutral-bar)} .sbar .s{background:var(--support)}
+.stxt{display:block}
+.stxt,.ktxt{font:500 .74rem/1.4 var(--ui);color:var(--muted);margin-top:.28rem;font-variant-numeric:tabular-nums}
+.ktxt{margin-top:0}
+.ixnote{font:500 .8rem/1.5 var(--ui);color:var(--muted);margin:.2rem 0 0}
+.arows{container-type:inline-size}
+@container (max-width:720px){
+  .ahdr{display:none}
+  .arow{grid-template-columns:3.6rem minmax(0,1fr) auto;
+    grid-template-areas:"code label count" ". split split" ". kind kind";padding:.65rem .8rem}
+  .arow .acode{grid-area:code}.arow .alabel{grid-area:label}.arow .acount{grid-area:count}
+  .arow .asplit{grid-area:split}.arow .akind{grid-area:kind}
+}
+
+/* ---------- argument page ---------- */
+.back{display:inline-flex;align-items:center;gap:.35rem;font:600 .85rem/1 var(--ui);
+  text-decoration:none;color:var(--verdigris)}
+.back:hover{text-decoration:underline}
+.ahead{margin:1rem 0 0}
+.ahead h2{margin:.3rem 0 .25rem;font:600 clamp(1.3rem,3vw,1.6rem)/1.25 var(--serif);
+  letter-spacing:-.01em;overflow-wrap:anywhere}
+.ahead h2 .hc{color:var(--muted);font-weight:500;margin-right:.45rem}
+.vahd{font:500 .92rem/1.55 var(--ui);color:var(--ink-2);max-width:76ch}
+.vahd i{color:var(--ink)}
+.asum{display:flex;flex-wrap:wrap;gap:.6rem 1.6rem;align-items:center;margin-top:.9rem;
+  font:500 .88rem/1.5 var(--ui);color:var(--ink-2)}
+.asum b{font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums}
+.asum .sbw{flex:0 1 16rem;min-width:9rem}
+.vapanel{border:1px solid var(--rail-line);border-left:3px solid var(--verdigris);
+  background:var(--panel);border-radius:3px;padding:1rem 1.15rem 1.05rem;margin:1.2rem 0 1.5rem}
+.vapanel.gap{border:1px dashed var(--gap-line);border-left:3px solid var(--brass);background:var(--gap-bg)}
+.vapanel .cap{display:block;margin-bottom:.55rem;color:var(--verdigris)}
+.vapanel.gap .cap{color:var(--brass)}
+.vapanel p{font:400 .88rem/1.65 var(--ui);color:var(--ink-2);margin:0 0 .75rem;max-width:78ch;
+  overflow-wrap:anywhere;text-wrap:pretty}
+.vapanel p.vh{font:600 .76rem/1.45 var(--ui);color:var(--muted);letter-spacing:.01em;margin-bottom:.6rem}
+.vamore{border:1px solid var(--rail-line);background:var(--paper);border-radius:3px;cursor:pointer;
+  padding:.42rem .7rem;font:640 .8rem/1 var(--ui);color:var(--verdigris)}
+.vacite{margin-top:.8rem;font:500 .8rem/1.5 var(--ui);color:var(--muted)}
+.vacite a{font-weight:640}
+.fhd{display:flex;flex-wrap:wrap;align-items:baseline;gap:.4rem 1rem;margin:0 0 .7rem}
+.fhd h3{margin:0;font:600 1.08rem/1.3 var(--serif)}
+.qcard{cursor:pointer;overflow-wrap:anywhere}
+.qcard:hover{border-color:var(--rail-line);box-shadow:var(--shadow)}
+.qcard .orgbtn{font:660 1rem/1.35 var(--ui)}
+blockquote.q{margin:.6rem 0 0;padding:.5rem .8rem;border-left:2px solid var(--c-arg);
+  background:var(--bg-arg);border-radius:0 2px 2px 0;font:400 .93rem/1.6 var(--serif);color:var(--ink)}
+.noq{margin-top:.5rem;font:500 .82rem/1.5 var(--ui);color:var(--muted);font-style:italic}
+
+/* ---------- document pop-up ---------- */
+.doc{position:fixed;inset:0;display:none;justify-content:center;align-items:flex-start;
+  padding:4vh 1rem;background:rgba(15,22,20,.5);z-index:70;overflow-y:auto;overscroll-behavior:contain}
+.doc[open]{display:flex}
+.docbox{position:relative;width:100%;max-width:52rem;background:var(--panel);border:1px solid var(--rule);
+  border-radius:4px;box-shadow:var(--shadow);padding:1.2rem 1.3rem 1.4rem;overflow-wrap:anywhere}
+.docx{position:absolute;top:.7rem;right:.7rem;border:1px solid var(--rail-line);background:var(--rail-bg);
+  border-radius:3px;padding:.38rem .65rem;font:600 .8rem/1 var(--ui);cursor:pointer;color:var(--ink-2)}
+.docbox h2{margin:.35rem 4.5rem .2rem 0;font:600 1.25rem/1.3 var(--serif)}
+.docbox .pos{display:inline-block;margin-top:.5rem}
+.dsec{margin-top:1.05rem}
+.dsec>h4{margin:0 0 .4rem;font:600 .71rem/1.4 var(--ui);letter-spacing:.075em;text-transform:uppercase;
+  color:var(--fc,var(--muted))}
+.alist{list-style:none;margin:0;padding:0;display:grid;gap:.55rem}
+.alist a{font:640 .86rem/1.4 var(--ui);text-decoration:none}
+.alist a:hover{text-decoration:underline}
+.alist blockquote.q{margin-top:.3rem;font-size:.88rem}
+.cbox{font:400 .92rem/1.7 var(--ui);color:var(--ink-2);white-space:pre-wrap;background:var(--rail-bg);
+  border:1px solid var(--rail-line);border-radius:2px;padding:.75rem .95rem;max-width:74ch}
+.dnote{font:500 .8rem/1.5 var(--ui);color:var(--brass);margin:.4rem 0 0}
+.docbox .body-text{max-width:none;overflow-wrap:anywhere}
+body.noscroll{overflow:hidden}
+</style>
+</head>
+<body>
+
+<header>
+ <div class="wrap">
+  <div class="topline">
+   <span class="brandline"><img class="dfmark" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAMAAABlApw1AAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAFxUExURf///wDengDengizjRojSQDengDfnwDfnwDfnwPMlg9xbRkjShUxUALTmQDfnxkjShgjSwDfnxkjShkjSgDdoQDenhkjShkjSQDdnwDenxkjShkjSwDfngDgoBkiShUjSgDfnw18cgDfnxkjShskSwDfnxkjShojSQDfnxkjShclShkkSgDfnhgkSRkjSgDfnxgiShgjSxwhTBkjShkjSgDfnxkjShkjSgDenxkjSgDfnxkkSxokSwDeoBojSgDfnxkkSgDfnwDenxkiSwDfnxkjSgDenwDfnwDfnwDfnhkjShcxUQDfnwDfnxkjSgDgnxgpTRkjSgDinRkjShkjShkjShkjShkjShgpTQDmowDfnwuMehcvTwmcgBc0UhkjSga1jBY8VQTDkhRMXAHUmhFhZhgrTgqUfQiihAS/kRJUYBBmaQHbnQeqhxVAVxBqagyFdgetiRVFWQLPmBFdZA5zbgDdngenhgW7jhcvUP///9FtvUIAAABadFJOUwA8R0MUcer39P71kwuF/fd0petUJsXdQzXewyRL46oY8f6d8xyU5lDN1DelZ4hjvEorNrOhXYVbpOLRMk5On6c72OZw/Nll7quuy27+gmoi9rsabq2MmnyWExQ6Zl4AAAABYktHRACIBR1IAAAAB3RJTUUH6QwMEiUB8u8lPAAABdpJREFUeNrtnW1bE0cUhrcmgpTtZBsoEGIJERKa8NKmEZDS2hektkAxGFAbYA/hZTWRBgrWln/fDwUaEMLuPjN73Mu59YsXFzqHZO6ceeYkGoZGo9FoNBqNRqPRaJj46BYrkShawO22dj7udHzcaYIFmJ8IUWH7tb4Rs9AKop+KCg9CbNpE8S70SdT9GVMBla0qEVFPL1pBX4LnAdjeISIi6k+iFdz9nKOA3T06ZSCFbuTbg8H//HfTzlkBMVxF99oDL+Dl+fqJhiz0STScCVZFovLKpiayI/BG/iLYAmpVukAuHyoVie06XUKCigLcyLuv6R1G0a4oOhZUBWI/7bxbAI3DPUWGQ0D/E59AK0h9GYyA/rDpSrJfodugkAji5aDWoGvIfY1WkFevItFRp2spwiqKqBfQAbXgPqgic3iyXbGADp1WBQxNmXBPobaAzZbrJ4pPwxv5gcr1/2nTDczAKsp/o66A7SO6kdwsWsG3qo434vgNuaCIHm+M7xQVsH9ArniIdkVmpp1BQM3HG/iAllEiIJtcAqvILHyvQEBVcs0MnLT88KN0Ae2QB/pxFf0kWUB75AlcRZNyBfSXt/XLSFokqkhU3AqoqYK59+iAJl7Z5Bk8aUnKSlrEVpV8gKsoL0lF23XyBZ60dMlQkdjdI58MwD2FDBXtp/2uX4qKHqE//7frju8CJIS+qXtoAX/bBCBBRVhOIf5pEMQ8HPpiSUtHnUBgFZmRNkBArwnmPhz6/uz/AUjj66fYFN5TPPLZAb10JBRAQxOwivwlLZ6OMC17ClhFBT8bWdQaJIl5+HjT66OC4zpJo4ir6LFnAR2QRDphFWW83j+lHZkF4Cry1hWJt5s2SQVXUfIXuSGuV/CZFg8qErUdko6E0Nd1T+EuxPWsIjhpGXOnIrF/QEqAVWS4VNGho6YACaHvAzcd0KZNiojjKvrV7SCcGnrUH2+Em1sk/ywUYBXdsJF335BSivBGXhxsPQhHipGQtCy1qGDdUV0ArqIWoa9QJ6CmpKUL7ymu6+u2GhQAeNJyXVe0vUOBgIe+kTutJ3FVg4e+V4zXXTMIpwQZoS+HgJpUNAf3FBkZt0icoe9s4uLLQa1KgYKP180mZNwisapoye0gnBrgSd/U5OB5BpF2gi8AT1pSGbeDcO/r8eZ00he8ReILfU2jkFiqVCq1I2ICT1ryiYo4rhMb+KTvWJs4IEbg8Trjt0OHs4DYONoULW/EOAugUfTVLMv6AMCboHuBdflwR/SkyLv+LBi5Rzt5nz9DyJtuTMMwrRLr+uFmaLrKWwA6gxDp4V3/Ciwg3g2Avvny6QCvgNBONNq5EV4BGYZhlpkFBAZD5kiDtwD0PNyX410/mkgk+21WA6E3ZalVXoGiFwTm+BFrAfAVzTLv85/WwPXfLdms6wcnJszuHIVcQCes60enhqKjvAKKwwJq8IYoqICmmTsgNMaKlOxSuAXE+wCgkyrD/SesGwB9V1b0GbOAwOsM8znvEQDPUOK8D8AzXEBhDnHN7gVeAaF3ScNFXgGhIa75IsQhrmEY5iJzB4QLiPcIgGYokRneDOIDD3HN6CpzB4SOE6wxC2gu5AJCp/tGsrwCQucrb83zCgjNUJ6s8G4ANMSNrvJmQFnwU4bMcWYBWbCAeI9ga9gGNiPZWJhDXKNv3uEVEJihJFd4XwDgEPch7xEYzlDGS6EWkLHM3QHBR5gSq4HQQbi+HK+A0BA3yTwIh37gaPTFCbOAwA7iOfM1MCqgCd5BuBieofA+AKiACtwZCjiJ+5R7DiXsk7hlsAMK/SRuifcBQAXUO897BIPnUBZ4jwDoJO7vA8wCQidxuUPcMjqJO8TbAaH/A8oI8zX2KJih5HO864czlH7e9aMfFJFifisAHOJO8b6AwYNwi7wCgm+RumYoRjG68Pvs7/7vK1f/u2ffdelbPf+GP7usyzpn7oxyuVwuX/jDZU6/ZCHMWZZlWfA7gjUajUaj0Wg0Go1Gw8S/o4DcH4ZC5eMAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjUtMTItMTJUMTg6Mzc6MDArMDA6MDDq8g3GAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDI1LTEyLTEyVDE4OjM3OjAwKzAwOjAwm6+1egAAACh0RVh0ZGF0ZTp0aW1lc3RhbXAAMjAyNS0xMi0xMlQxODozNzowMSswMDowMGrNnxEAAAAASUVORK5CYII=" alt="Democracy Forward"><span class="cap">Docket VA-2025-VHA-0073 &middot; RIN 2900-AS31</span></span>
+   <span class="rulelinks">
+    <a class="proposal" id="rulelink" href="https://www.federalregister.gov/documents/2025/12/31/2025-24061/reproductive-health-services" target="_blank" rel="noopener">Read the final rule <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 01-1 1H5a1 1 0 01-1-1V7a1 1 0 011-1h5"/></svg></a>
+   </span>
+  </div>
+  <h1>Comment Browser: Reproductive Health Services Rule</h1>
+  <p class="scope">A searchable index of select public comments on VA&rsquo;s Reproductive Health Services
+   <a href="https://www.federalregister.gov/documents/2025/08/04/2025-14687/reproductive-health-services" target="_blank" rel="noopener">proposed rule</a>, read against <button class="def" data-t="VA's response outline" data-d="In the final rule, VA answers public comments under a numbered set of headings (I.A, II.D, VII and so on). This browser files each argument under the heading VA used, so you can read what commenters said beside what VA said in reply.">VA&rsquo;s response to comments</button>.</p>
+
+  <div class="figures">
+   <div class="fig-col">
+    <span class="cap">Total received</span><div class="fig-hair"></div>
+    <span class="fig dim" id="t-va">&ndash;</span>
+    <span class="fig-label">comments submitted to VA, by
+     <button class="def" data-t="VA's count" data-d="From the final rule: VA received 20,984 document submissions, which included approximately 24,333 total comments, because some submissions bundle several comments. VA states that the vast majority were duplicated form responses.">VA&rsquo;s count</button></span>
+   </div>
+   <div class="fig-box">
+    <span class="cap">In this index</span><div class="fig-hair"></div>
+    <div class="ix-total"><span class="fig accent" id="f-count">&ndash;</span>
+     <span class="fig-label accent"><button class="def" data-t="Unique" data-d="One record per distinct comment. When many people sent the same template letter and changed only their name or contact details, the browser shows one copy and notes how many people sent it. A copy that adds or changes any wording is kept as its own record.">unique</button> comments</span></div>
+    <div class="ix-split" id="ix-split" role="img" aria-label="Organizations and individuals">
+     <span class="seg org" id="seg-org"></span><span class="seg ind" id="seg-ind"></span></div>
+    <div class="ix-parts">
+     <div class="part" id="part-org"><span class="pn"><b class="num" id="f-org">&ndash;</b> organizations</span>
+      <span class="pd">every comment filed by an <button class="def" data-t="Organization" data-d="Filed on behalf of an organization: a nonprofit, professional or advocacy group, government body, university, union, coalition or legislative office. Judged from the text of the filing, not from what the filer typed in the organization box, and includes both uploaded letters and comments typed into the regulations.gov comment box.">organization</button></span></div>
+     <div class="part" id="part-ind"><span class="pn"><b class="num" id="f-ind">&ndash;</b> individuals</span>
+      <span class="pd"><button class="def" data-t="Selected comments from individuals" data-d="Comments from private individuals that included an uploaded document (a letter, brief or image), or that VA&rsquo;s final rule answers specifically (&ldquo;One commenter suggested&hellip;&rdquo;). A template letter is included once when one of its copies was uploaded. Other comments typed only into the comment box are not included, and comments reviewed and found to contain no argument about the rule are excluded.">selected comments</button> with an uploaded document, or that VA&rsquo;s final rule answers specifically</span></div>
+    </div>
+   </div>
+  </div>
+
+  <p class="fignote"><b>Note:</b> The comment docket was analyzed using an AI-assisted review of each filing&rsquo;s text. This tool should be used as a navigation aid, and data should be verified before relying on it. For more detail, see the <a href="#method">methodology and glossary</a>.</p>
+ </div>
+</header>
+
+
+<div class="tools" id="tools">
+   <div class="wrap">
+    <div class="searchrow">
+     <div class="mode viewsw" role="group" aria-label="View">
+      <button type="button" data-v="comments" aria-pressed="true">By comment</button>
+      <button type="button" data-v="arguments" aria-pressed="false">By argument</button>
+     </div>
+     <label class="sbox">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" type="search" placeholder="Search organization names and comment text" aria-label="Search">
+     </label>
+     <span class="count" id="count"></span><span class="loading" id="load" hidden><span class="spin" id="loadspin"></span><span id="loadtxt">Loading full text&hellip;</span></span>
+     <button class="csvbtn" id="csv" type="button" title="Download the current results as CSV"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11"/><path d="m7 10 5 5 5-5"/><path d="M5 20h14"/></svg>CSV</button>
+     <button class="clearall" id="clearall" type="button" hidden>Clear all</button>
+    </div>
+    <div class="chips" id="chips"></div>
+   </div>
+</div>
+
+<div class="wrap">
+ <div class="cols" id="cols">
+  <nav class="rail" id="rail" aria-label="Filters"></nav>
+  <main id="main">
+   <div id="results"><div class="empty">Loading&hellip;</div></div>
+  </main>
+ </div>
+</div>
+
+<div class="pop" id="pop" role="dialog" aria-modal="true" aria-labelledby="poptitle">
+ <div class="popbox">
+  <span class="cap">Definition</span>
+  <h3 id="poptitle"></h3>
+  <p id="popbody"></p>
+  <button id="popclose" type="button">Close</button>
+ </div>
+</div>
+
+<div class="doc" id="doc" role="dialog" aria-modal="true" aria-labelledby="doctitle">
+ <div class="docbox" id="docbox"></div>
+</div>
+
+<section id="method">
+ <div class="wrap">
+  <details class="methodwrap" id="methodwrap">
+   <summary>
+    <span class="cap">Reference</span>
+    <h2>Methodology &amp; glossary</h2>
+    <span class="mw-hint"><span class="lbl"></span>
+     <svg class="mchev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></span>
+   </summary>
+
+   <details class="sub" open>
+    <summary><svg class="schev" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>Status and accuracy</summary>
+    <div class="sub-body prose">
+     <p>Classifications were produced by an AI-assisted reading of each filing, and every label is tied to a
+      verbatim excerpt verified against the filing&rsquo;s own text. <b>Human-level audit of the classifications is
+      not yet complete:</b> an evaluation against an independent reference labelling of a 50-record sample is under
+      way, and no accuracy figure is reported here. Counts and labels should be checked against the filings before
+      they are relied on.</p>
+     <p>The index currently comprises <b class="num" id="m-count">&ndash;</b> records<span id="m-sub" hidden></span>:
+      <b class="num" id="m-cls">&ndash;</b> classified, <b class="num" id="m-pend">&ndash;</b> withheld pending manual
+      review and <b class="num" id="m-uncl">&ndash;</b> not yet classified. Data built <span id="m-built">&ndash;</span>.</p>
+    </div>
+   </details>
+
+   <details class="sub">
+    <summary><svg class="schev" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>Scope and selection</summary>
+    <div class="sub-body prose">
+     <p>VA reports <span class="num" data-t="va_submissions">20,984</span> document submissions on the proposed rule, comprising approximately <span class="num" data-t="va_comments">24,333</span> comments;
+      the comment period closed on 3 September 2025, and all <span class="num" data-t="posted">20,984</span> submissions are posted to the public docket
+      on regulations.gov. This index covers a defined subset of that record, selected by the following criteria.</p>
+     <p>First, near-duplicate submissions were consolidated (see <i>Extraction and deduplication</i>): of <span class="num" data-t="in_families">11,486</span>
+      submissions belonging to <span class="num" data-t="families">214</span> template campaigns, <span class="num" data-t="copies_set_aside">10,476</span> copies that differed from their template only in
+      signature or contact details were withheld in favour of a single exemplar. <span class="num" data-t="empty">12</span> submissions with no text
+      were also withheld.</p>
+     <p>Second, a remaining record is retained if it satisfies at least one of three conditions: (i) it is
+      accompanied by an uploaded document; (ii) it was filed on behalf of an organization, as determined from the
+      text of the filing rather than from the filer-entered organization field, which is unreliable; or
+      (iii) VA&rsquo;s final rule responds to it specifically (see <i>VA responds to</i>). A template exemplar is
+      also retained where the only document-bearing copy of that template was consolidated. Comments entered only
+      in the regulations.gov free-text field by private individuals are not included unless condition (iii)
+      applies; a substantively reasoned comment entered in that field may therefore be absent.</p>
+     <p>Third, records reviewed manually and found to contain no argument directed at the rule (spam,
+      off-topic material, or statements of stance without reasons) were excluded, each with a recorded reason;
+      <span class="num" data-t="excluded">27</span> records were excluded on this basis.</p>
+    </div>
+   </details>
+
+   <details class="sub">
+    <summary><svg class="schev" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>Extraction and deduplication</summary>
+    <div class="sub-body prose">
+     <p>The docket was obtained as a bulk CSV export from regulations.gov, and attachments (255 files on 138
+      submissions) were retrieved from downloads.regulations.gov. Text was extracted with PyMuPDF for PDF files
+      and python-docx for Word documents; scanned documents and images were processed by optical character
+      recognition (easyocr), and OCR-derived text is flagged as such. Published third-party works attached as
+      exhibits (reports, studies and articles) are represented by title only and were neither classified nor indexed
+      for search.</p>
+     <p>Near-duplicate detection used MinHash locality-sensitive hashing over five-word shingles (128
+      permutations in 32 bands), with submissions clustered at an estimated Jaccard similarity of 0.55 and
+      verified against exact similarity. A cluster member was consolidated into its exemplar only where it added no
+      sentence, stance term or self-identifying statement (for example, military service) and retained at least
+      80% of the template text; members meeting any of those conditions were retained as separate records.</p>
+    </div>
+   </details>
+
+   <details class="sub">
+    <summary><svg class="schev" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>Classification</summary>
+    <div class="sub-body prose">
+     <p>Organizational status was first determined for the 174 document-bearing or organization-signalled
+      submissions by a large language model, with each determination supported by a quotation. Each retained
+      letter was then read in full by a large language model (Anthropic Claude) against a fixed brief and a closed,
+      controlled vocabulary: position on the rule (four values), filing type, commenter type and sub-type,
+      evidence offered, commenter attributes, geographic scope, and 46 argument codes. Of those codes, 36
+      correspond to the headings under which VA organizes its response to comments in the final rule, nine to
+      arguments identified in a manually reviewed sample of 50 comments that have no heading in VA&rsquo;s
+      response, and one is a residual category. The vocabularies were read from the database schema at run time and
+      fixed by a reviewer before classification.</p>
+     <p>Each assigned value was required to be accompanied by a verbatim quotation from the source filing, and
+      every quotation was verified programmatically against the extracted text, after normalizing Unicode, typographic
+      quotation marks, whitespace, line-break hyphenation and footnote reference markers. Where any quotation in a
+      record could not be located, all values for that record were discarded rather than partially retained; such
+      records were re-processed once and, if still unverifiable, withheld for manual review. Fields not
+      substantiated by the filing were left empty; an absent value should be read as &ldquo;not established&rdquo;
+      rather than &ldquo;not present&rdquo;.</p>
+     <p>Manual corrections in the underlying database (for example, to commenter type) take precedence over model
+      output, and were never overwritten by it. The classification is AI-assisted throughout; errors of omission and
+      commission should be presumed to remain, and the labels are intended as a finding aid for identifying filings
+      that warrant direct review, not as a citable characterization of any commenter. Individuals&rsquo; names are
+      not displayed.</p>
+    </div>
+   </details>
+
+   <details class="sub">
+    <summary><svg class="schev" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>Arguments, strongest versions and VA&rsquo;s response</summary>
+    <div class="sub-body prose">
+     <p>VA&rsquo;s final rule (<span id="m-cite">90 FR 61310</span>) responds to comments under a numbered outline of
+      headings; each argument page sets VA&rsquo;s response passage for that heading beside the filings coded to it.
+      The grouping <i>Arguments not in VA&rsquo;s response outline</i> describes the structure of VA&rsquo;s document
+      only, and does not establish whether VA considered the argument.</p>
+     <p><b>Strongest versions.</b> For each argument and side, up to eight filings are shortlisted by evidence type
+      (legal analysis, published citations, quantified figures, proposed regulatory text). Each is scored 0&ndash;2 on
+      support, specificity, engagement with VA&rsquo;s stated rationale (weighted double) and completeness, for a total
+      of 0&ndash;10; for arguments outside VA&rsquo;s outline, engagement is not scored and the total is 0&ndash;6.
+      Filings scoring at least 80% of the maximum are grouped into up to four distinct lines of reasoning, which are
+      ranked by pairwise comparison. Each version carries a verified verbatim excerpt and the sentence of VA&rsquo;s
+      passage that best answers it, or a note that the passage does not. That assessment is confined to the passage
+      under the relevant heading; VA may address the point elsewhere in the rule. Selections are model-generated
+      and have not yet been reviewed by a person.</p>
+     <p><b>VA responds to.</b> Sentences in which VA describes a specific commenter or small number of commenters
+      (&ldquo;One commenter suggested &hellip;&rdquo;; <span class="num" data-t="va_specific_total">34</span> instances across <span class="num" data-t="va_specific_headings">16</span> headings) were extracted from the final
+      rule. Candidate comments were retrieved by TF-IDF ranking over the full text of all <span class="num" data-t="posted">20,984</span> submissions, including
+      attachments; a language model then identified the comment, if any, that makes the point described, with a
+      verified supporting quotation; and each identification was confirmed manually. <span class="num" data-t="va_specific_matched">23</span> of the <span class="num" data-t="va_specific_total">34</span> descriptions were
+      matched.</p>
+    </div>
+   </details>
+
+   <details class="sub">
+    <summary><svg class="schev" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>Glossary</summary>
+    <div class="sub-body prose">
+     <dl class="gloss">
+      <dt>Comment letter</dt><dd>A comment filed on behalf of an organization, or any comment that included an
+       uploaded document, rather than only text typed into the comment box.</dd>
+      <dt>Unique</dt><dd>One record per distinct comment; duplicate template copies are shown once.</dd>
+      <dt>Template campaign</dt><dd>A group of near-identical comments, the same letter sent by many people,
+       found by comparing their text.</dd>
+      <dt>Counts are filings</dt><dd>Every number counts docket records, not people. A template letter is
+       counted once, however many people sent it.</dd>
+      <dt>Position</dt><dd>The filing&rsquo;s stance on the rule: Oppose, Support, Mixed (supports some parts,
+       opposes others), or Neutral or technical. Blank when the filing states no stance.</dd>
+      <dt>Argument</dt><dd>A heading of VA&rsquo;s response outline, or an argument outside it, that the filing
+       makes, each backed by a quotation from the filing.</dd>
+      <dt>Commenter type</dt><dd>Organization or individual, judged from the filing itself. Sub-type gives the
+       finer category.</dd>
+      <dt>Filing type</dt><dd>Substantive comment, or a brief general comment.</dd>
+      <dt>Evidence offered</dt><dd>What the filer put behind the argument: citations, legal analysis, case
+       stories, figures, proposed regulatory text.</dd>
+      <dt>Strongest versions</dt><dd>The distinct lines of an argument that are hardest for VA&rsquo;s response to
+       set aside, selected as described above.</dd>
+      <dt>VA responds to</dt><dd>VA&rsquo;s final rule answers this comment specifically.</dd>
+      <dt>Classification pending</dt><dd>The automated reading could not be traced word for word to the filing,
+       so its labels were withheld; the filing is held for hand review.</dd>
+     </dl>
+    </div>
+   </details>
+
+  </details>
+ </div>
+</section>
+<footer class="contact">
+ <div class="wrap">
+  <p>Questions or feedback? Contact
+   <a href="mailto:rulemaking@democracyforward.org">rulemaking@democracyforward.org</a>.</p>
+ </div>
+</footer>
+
+<script>
+"use strict";
+/* ------------------------------------------------------------------ *
+ * VA-2025-VHA-0073 comment browser.
+ *   data/comments.json    metadata + 150 records, loaded up front
+ *   data/arguments.json   VA's response outline + argument definitions
+ *   data/text/<id>.json   filing text, fetched only when a document opens
+ * Routes: #comments, #arguments, #argument/<code>
+ * Every count is computed here from the records, so it follows the rail.
+ * ------------------------------------------------------------------ */
+const el=id=>document.getElementById(id);
+const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const fmt=n=>Number(n||0).toLocaleString("en-US");
+const PAGE=25;
+
+const LABEL={kind:"Commenter type",pos:"Position",sub:"Commenter sub-type",filing:"Filing type",
+  ev:"Evidence offered",attr:"Commenter attributes",arg:"Arguments",status:"Status",va:"Response"};
+const FIELD={kind:"kind",pos:"position",sub:"subtype",filing:"filing",ev:"evidence",
+  attr:"attributes",arg:"arguments",status:"status",va:"va_responds"};
+/* tag-family hue for each facet, reusing the OMB browser's families */
+const FCOL={kind:"sec",sub:"sub",attr:"attr",pos:"pos",arg:"arg",filing:"asks",ev:"ev",status:"fa",va:"fa"};
+const FAM=[{label:"Who filed",keys:["kind","sub","attr"]},
+           {label:"What they said",keys:["pos","arg","filing","ev"]},
+           {label:"Record",keys:["va","status"]}];
+const FIXED_ORDER={pos:["Oppose","Support","Mixed","Neutral or technical"],
+  kind:["Organization","Individual"],status:["classified","pending","unclassified"]};
+const STATUS_LABEL={classified:"Classified",pending:"Classification pending",unclassified:"Not yet classified"};
+
+let META={}, DOCS=[], BYID={}, ARGS=[], ARG={}, SECTIONS=[], SECT={}, ORDER=[], ORDIX={};
+const sel={};
+const qs={comments:"",arguments:"",argument:""};
+let view="comments", argCode=null, shown=PAGE, sortMode="outline", vaOpen=false;
+
+/* ---------- helpers ---------- */
+const VA_YES="VA responds to this comment";
+const vals=(r,k)=>{if(k==="va") return (r.va_responds||[]).length?[VA_YES]:[];
+  const v=r[FIELD[k]]; if(v==null||v==="") return [];
+  return Array.isArray(v)?v.filter(x=>x!==""&&x!=null):[v];};
+const isCls=r=>r.status==="classified";
+const vaResp=(r,code)=>(r.va_responds||[]).find(v=>v.code===code);
+const raises=(r,code)=>(isCls(r)&&Array.isArray(r.arguments)&&r.arguments.includes(code))||!!vaResp(r,code);
+function shortLabel(a){
+  let s=String(a.label||a.code);
+  if(s.startsWith(a.code+" ")) s=s.slice(a.code.length+1);
+  return s.replace(/^Not in VA outline:\s*/i,"");
+}
+const argName=code=>ARG[code]?code+" "+shortLabel(ARG[code]):code;
+function dispVal(k,v){
+  if(k==="arg") return argName(v);
+  if(k==="status") return STATUS_LABEL[v]||v;
+  return v;
+}
+function posClass(p){
+  if(!p) return "";
+  if(p==="Oppose"||p==="Support"||p==="Mixed") return p;
+  if(p.startsWith("Neutral")) return "Neutral";
+  return "";
+}
+const MON=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+function fdate(d){const m=/^(\d{4})-(\d{2})-(\d{2})/.exec(d||""); if(!m) return d||"";
+  return (+m[3])+" "+MON[+m[2]-1]+" "+m[1];}
+/* Individuals' names are never shown: only an organization's own name (or
+   its regulations.gov title) is used, whatever else the record carries. */
+function nameOf(r){
+  if(r.kind==="Organization")
+    return r.org||String(r.title||"").replace(/\s+on\s+VA-\d{4}-VHA-\d{4}-\d{4}\s*$/,"")||"Organization (name not recorded)";
+  return r.kind==="Individual"?"Individual commenter":"Commenter, type not determined";
+}
+const subLabel=r=>r.kind==="Organization"?"Organization type":"Commenter sub-type";
+function badge(r){
+  if(r.status==="pending") return '<span class="pos stat">Classification pending</span>';
+  if(r.status!=="classified") return '<span class="pos stat">Not yet classified</span>';
+  const c=posClass(r.position);
+  if(!c) return '<span class="pos None">No position</span>';
+  return '<span class="pos '+c+'">'+esc(c==="Neutral"?"Neutral":r.position)+"</span>";
+}
+/* Escape a raw string and wrap every case-insensitive occurrence of any
+   needle in <mark>. Matching runs on the raw text; only the pieces are
+   inserted, each escaped, so no data ever reaches innerHTML unescaped. */
+function markAll(raw,needles){
+  raw=String(raw||"");
+  const low=raw.toLowerCase(), rng=[];
+  (needles||[]).forEach(n=>{ n=String(n||"").toLowerCase(); if(n.length<2) return;
+    let i=low.indexOf(n); while(i>=0){ rng.push([i,i+n.length]); i=low.indexOf(n,i+n.length);} });
+  if(!rng.length) return esc(raw);
+  rng.sort((a,b)=>a[0]-b[0]);
+  const m=[]; rng.forEach(r=>{const t=m[m.length-1]; if(t&&r[0]<=t[1]) t[1]=Math.max(t[1],r[1]); else m.push(r.slice());});
+  let out="",p=0; m.forEach(([a,b])=>{out+=esc(raw.slice(p,a))+"<mark>"+esc(raw.slice(a,b))+"</mark>";p=b;});
+  return out+esc(raw.slice(p));
+}
+const qtoks=q=>(q||"").split(/\s+/).filter(t=>t.length>=2);
+
+/* ---------- filtering ---------- */
+function facetPass(r,skip){
+  for(const k in sel){ if(k===skip||!sel[k].size) continue;
+    const vs=vals(r,k); let hit=false;
+    for(const v of sel[k]) if(vs.includes(v)){hit=true;break;}
+    if(!hit) return false; }
+  return true;
+}
+function textHay(r,code){
+  const own=r.kind==="Organization"?[r.org,r.title]:[];
+  if(code) return own.concat([r.comment,r.id,r.argument_quotes?r.argument_quotes[code]:""]).join(" ").toLowerCase();
+  /* comment view: also the full text, once it has loaded */
+  return own.concat([r.comment,r.id,SEARCH&&SEARCH[r.id]||""]).join(" ").toLowerCase();
+}
+/* data/search.json ({Document ID: lowercased comment box + attachment text})
+   loads the first time someone searches the comment view. Every keystroke
+   takes a new token; a load that finishes re-renders only if its token is
+   still the newest, so a slow load never applies to a stale query. */
+let SEARCH=null, searchP=null, searchSeq=0, searchFailed=false;
+function ensureSearch(){
+  if(SEARCH) return Promise.resolve(true);
+  if(!searchP){
+    el("load").hidden=false; el("loadspin").hidden=false; el("loadtxt").innerHTML="Loading full text&hellip;";
+    searchP=fetch("data/search.json",{cache:"no-cache"}).then(r=>{if(!r.ok) throw new Error(r.status); return r.json();})
+      .then(d=>{SEARCH=d; searchFailed=false; el("load").hidden=true; return true;})
+      .catch(()=>{searchP=null; searchFailed=true; el("loadspin").hidden=true;
+        el("loadtxt").textContent="Full text could not be loaded; searching names and comment box only."; return false;});
+  }
+  return searchP;
+}
+function fullTextIfNeeded(){
+  const seq=++searchSeq;
+  if(view!=="comments"||!qs.comments||SEARCH) return;
+  ensureSearch().then(ok=>{ if(ok&&seq===searchSeq&&view==="comments") render(); });
+}
+function textPass(r,q,code){
+  if(!q) return true; const h=textHay(r,code);
+  return qtoks(q).every(t=>h.includes(t));
+}
+/* the records the current view is about, before the facet under count */
+function baseRecords(skip){
+  if(view==="comments") return DOCS.filter(r=>facetPass(r,skip)&&textPass(r,qs.comments));
+  if(view==="argument") return DOCS.filter(r=>raises(r,argCode)&&facetPass(r,skip)&&textPass(r,qs.argument,argCode));
+  return DOCS.filter(r=>facetPass(r,skip));
+}
+const anySel=()=>Object.values(sel).some(s=>s&&s.size);
+
+/* ---------- rail ---------- */
+function buildRail(){
+  const rail=el("rail"); rail.innerHTML="";
+  FAM.forEach(fam=>{
+    const box=document.createElement("div"); box.className="fam";
+    box.innerHTML='<div class="famhead"><span class="cap">'+esc(fam.label)+'</span></div>';
+    fam.keys.forEach(k=>{
+      const d=document.createElement("details"); d.className="fct"; d.dataset.key=k; d.dataset.f=FCOL[k];
+      if(k==="kind"||k==="pos"||k==="sub") d.open=true;
+      d.innerHTML='<summary><span class="fdot"></span><span>'+esc(LABEL[k])+'</span><span class="nsel" hidden></span>'+
+        '<span class="tw">&#9654;</span></summary><div class="fbody">'+
+        '<input class="ffilter" placeholder="Filter&hellip;" aria-label="Filter '+esc(LABEL[k])+'" hidden>'+
+        '<div class="opts"></div><button class="more" type="button" hidden></button></div>';
+      box.appendChild(d);
+    });
+    rail.appendChild(box);
+  });
+  rail.addEventListener("input",e=>{if(e.target.classList.contains("ffilter"))paintFacet(e.target.closest("details.fct"));});
+  rail.addEventListener("click",e=>{
+    const m=e.target.closest(".more");
+    if(m){const d=m.closest("details.fct");d.dataset.all=d.dataset.all?"":"1";paintFacet(d);return;}
+    const o=e.target.closest(".opt");
+    if(o){const k=o.closest("details.fct").dataset.key,v=o.dataset.v;
+      sel[k]=sel[k]||new Set(); sel[k].has(v)?sel[k].delete(v):sel[k].add(v);
+      shown=PAGE; render();}
+  });
+}
+/* counts exclude this facet's own filter (standard faceted behaviour);
+   a selected value stays listed at 0 so it can always be unticked */
+function countsFor(k){
+  const c={}; baseRecords(k).forEach(r=>vals(r,k).forEach(v=>c[v]=(c[v]||0)+1));
+  if(sel[k]) sel[k].forEach(v=>{if(!(v in c)) c[v]=0;});
+  const e=Object.entries(c), fo=FIXED_ORDER[k];
+  if(k==="arg") return e.sort((a,b)=>(ORDIX[a[0]]??999)-(ORDIX[b[0]]??999));
+  if(fo){const ix=v=>{const i=fo.indexOf(v);return i<0?999:i;};
+    return e.sort((a,b)=>ix(a[0])-ix(b[0]));}
+  return e.sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0]));
+}
+function optHTML(k,v,c){
+  const on=sel[k]&&sel[k].has(v);
+  const isArg=k==="arg"&&ARG[v];
+  const lb=isArg?esc(shortLabel(ARG[v])):esc(dispVal(k,v));
+  return '<button class="opt" type="button" aria-pressed="'+(on?"true":"false")+'" data-v="'+esc(v)+'"'+
+    (isArg?' title="'+esc(argName(v))+'"':"")+'>'+
+    '<span class="bx">&#10003;</span><span class="lb">'+lb+'</span><span class="ct num">'+fmt(c)+"</span></button>";
+}
+document.addEventListener("toggle",e=>{
+  const d=e.target; if(!d.classList||!d.classList.contains("allf")) return;
+  d.open?ALLOPEN.add(d.dataset.a):ALLOPEN.delete(d.dataset.a);
+},true);
+const OPENSEC=new Set();   // argument sections the reader has opened in the rail
+const SECT_SHORT={"I":"General challenges","II":"VA\u2019s rationale","III":"Other legal concerns","IV":"CHAMPVA",
+  "V":"Counseling","VI":"Mission and funding","VII":"Rape, incest and MST","VIII":"Other matters","GAP":"Not in VA\u2019s outline"};
+document.addEventListener("toggle",e=>{
+  const d=e.target; if(!d.classList||!d.classList.contains("osub")) return;
+  d.open?OPENSEC.add(d.dataset.s):OPENSEC.delete(d.dataset.s);
+},true);
+function paintFacet(det){
+  const k=det.dataset.key, all=countsFor(k);
+  const inp=det.querySelector(".ffilter");
+  inp.hidden = k!=="arg" && all.length<=14;
+  const needle=(!inp.hidden&&inp.value||"").toLowerCase();
+  const list=all.filter(([v])=>!needle||dispVal(k,v).toLowerCase().includes(needle));
+  const box=det.querySelector(".opts"), more=det.querySelector(".more");
+  if(k==="arg"){
+    /* grouped under VA's section headings, in outline order */
+    const groups=new Map();
+    list.forEach(([v,c])=>{const s=ARG[v]?ARG[v].section:"GAP"; if(!groups.has(s)) groups.set(s,[]); groups.get(s).push([v,c]);});
+    let html="";
+    groups.forEach((items,s)=>{
+      const nsel=items.filter(([v])=>sel.arg&&sel.arg.has(v)).length;
+      const open=OPENSEC.has(s)||nsel>0||!!needle;
+      html+='<details class="osub" data-s="'+esc(s)+'"'+(open?" open":"")+'><summary>'+
+        '<span class="tw" aria-hidden="true">&#9656;</span><span class="sn">'+esc(SECT_SHORT[s]||s)+"</span>"+
+        (nsel?'<span class="nsel">'+nsel+"</span>":"")+'<span class="sc">'+items.length+"</span></summary>"+
+        items.map(([v,c])=>optHTML(k,v,c)).join("")+"</details>";
+    });
+    box.innerHTML=html||'<div style="padding:.3rem;color:var(--dim);font-size:.8rem">No match</div>';
+    more.hidden=true;
+  }else{
+    const open=det.dataset.all||needle;
+    box.innerHTML=(open?list:list.slice(0,6)).map(([v,c])=>optHTML(k,v,c)).join("")||
+      '<div style="padding:.3rem;color:var(--dim);font-size:.8rem">No match</div>';
+    more.hidden=list.length<=6;
+    more.textContent=open?"Show fewer":"Show all "+list.length;
+  }
+  const n=det.querySelector(".nsel"),c=(sel[k]&&sel[k].size)||0;
+  n.hidden=!c; n.textContent=c;
+}
+
+/* ---------- chips ---------- */
+function buildChips(){
+  const c=el("chips"); c.innerHTML="";
+  for(const k in sel) for(const v of sel[k]){
+    const b=document.createElement("button"); b.className="chip"; b.type="button";
+    b.dataset.f=FCOL[k];
+    b.innerHTML="<span>"+esc(LABEL[k]+": "+dispVal(k,v))+"</span><span class='x' aria-hidden='true'>&times;</span>";
+    b.setAttribute("aria-label","Remove filter "+LABEL[k]+": "+dispVal(k,v));
+    b.onclick=()=>{sel[k].delete(v);shown=PAGE;render();};
+    c.appendChild(b);}
+  el("clearall").hidden=view==="comments"?(!anySel()&&!qs[view]):!qs[view];
+}
+
+/* ---------- position split (diverging: oppose | mixed | neutral | support) ---------- */
+function tally(recs){
+  const t={n:0,pos:{Oppose:0,Mixed:0,Neutral:0,Support:0,none:0},kind:{Organization:0,Individual:0,other:0}};
+  recs.forEach(r=>{t.n++;
+    const p=posClass(r.position); t.pos[p||"none"]++;
+    const k=r.kind==="Organization"||r.kind==="Individual"?r.kind:"other"; t.kind[k]++;});
+  return t;
+}
+function splitBar(t,max,label){
+  const p=t.pos, w=max?Math.max(0,Math.min(100,100*t.n/max)):0;
+  const segs=[["o",p.Oppose],["m",p.Mixed],["n",p.Neutral],["s",p.Support]].filter(s=>s[1]>0);
+  const tot=segs.reduce((a,s)=>a+s[1],0);
+  const lab=label||splitText(t);
+  return '<span class="track" role="img" aria-label="'+esc(lab||"No filings")+'" title="'+esc(lab||"No filings")+'">'+
+    '<span class="sbar" style="width:'+w.toFixed(1)+'%">'+
+    segs.map(s=>'<span class="'+s[0]+'" style="flex:'+s[1]+' 1 0"></span>').join("")+
+    (tot===0&&t.n>0?'<span class="n" style="flex:1 1 0"></span>':"")+
+    "</span></span>";
+}
+function splitText(t){
+  const p=t.pos, out=[];
+  if(p.Oppose) out.push(p.Oppose+" oppose");
+  if(p.Mixed) out.push(p.Mixed+" mixed");
+  if(p.Neutral) out.push(p.Neutral+" neutral");
+  if(p.Support) out.push(p.Support+" support");
+  if(p.none) out.push(p.none+" no position");
+  return out.join(" · ");
+}
+function kindText(t){
+  const k=t.kind, out=[k.Organization+" org",k.Individual+" ind"];
+  if(k.other) out.push(k.other+" other");
+  return out.join(" · ");
+}
+const LEGEND='<div class="legend" aria-label="Position colours">'+
+  '<span><i class="k-opp"></i>Oppose</span><span><i class="k-mix"></i>Mixed</span>'+
+  '<span><i class="k-neu"></i>Neutral or technical</span><span><i class="k-sup"></i>Support</span></div>';
+
+/* ---------- view: by comment ---------- */
+function argChips(r){
+  const as=r.arguments||[]; if(!as.length) return "";
+  const on=sel.arg||new Set();
+  const ordered=[...as].sort((a,b)=>(on.has(b)?1:0)-(on.has(a)?1:0));
+  const head=ordered.slice(0,3), rest=ordered.length-head.length;   // OMB: 3 per family, then "+n"
+  return '<span class="runs"><span class="run" data-f="arg"><span class="runlabel">Arguments</span>'+
+    head.map(c=>'<a class="tg'+(on.has(c)?" hit":"")+'" href="#argument/'+encodeURIComponent(c)+'" title="'+
+      esc(argName(c))+'">'+esc(ARG[c]?shortLabel(ARG[c]):c)+"</a>").join("")+
+    (rest>0?'<span class="tg tg-more">+'+rest+"</span>":"")+
+    "</span></span>";
+}
+function metaRow(r){
+  const parts=[];
+  if((r.va_responds||[]).length) parts.push('<span class="vatag" title="'+esc(r.va_responds.map(v=>v.code+": "+v.sentence).join("\n"))+
+    '">VA responds to this comment</span>');
+  if(r.kind) parts.push(esc(r.kind));
+  if(r.subtype&&r.subtype!==r.kind) parts.push(esc(r.subtype));
+  parts.push(esc(fdate(r.date)));
+  parts.push('<span class="mono">'+esc(r.id)+"</span>");
+  if(r.family_size>1) parts.push('<span class="fam-n">sent by '+fmt(r.family_size)+" people</span>");
+  if(r.has_attachment) parts.push("Attachment");
+  return parts.join("<span class='bull'></span>");
+}
+function excerpt(r){
+  const t=String(r.comment||"").replace(/\s+/g," ").trim();
+  const toks=qtoks(qs.comments);
+  if(toks.length&&SEARCH&&SEARCH[r.id]&&!toks.some(k=>t.toLowerCase().includes(k))){
+    /* matched in the attachment text only: show where */
+    const f=SEARCH[r.id], k=toks.find(x=>f.includes(x));
+    if(k){const i=f.indexOf(k), a=Math.max(0,i-90), b=Math.min(f.length,i+k.length+150);
+      return '<p class="excerpt"><span class="exlab">In the filing text:</span> '+(a>0?"\u2026":"")+
+        markAll(f.slice(a,b),toks)+(b<f.length?"\u2026":"")+"</p>";}
+  }
+  if(!t) return "";
+  let s=t;
+  if(toks.length){const i=t.toLowerCase().indexOf(toks[0]); if(i>90) s="…"+t.slice(i-60);}
+  return '<p class="excerpt">'+markAll(s,toks)+"</p>";
+}
+function card(r){
+  const pos=isCls(r)?posClass(r.position):"";
+  const name=nameOf(r);
+  return '<article class="entry" data-pos="'+esc(pos)+'" data-open="'+esc(r.id)+'">'+
+    '<div class="ehead"><span class="stripe"></span><span class="emain">'+
+      '<button type="button" class="orgbtn" data-open="'+esc(r.id)+'">'+markAll(name,qtoks(qs.comments))+"</button>"+
+      '<span class="erow">'+metaRow(r)+"</span>"+
+      (isCls(r)?argChips(r):"")+
+      excerpt(r)+
+    "</span>"+
+    '<span class="easide">'+badge(r)+
+      '<svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></span></div></article>';
+}
+const OPENQ=new Set();      // cards whose argument quotes are expanded
+function quoteToggle(r){
+  if(!isCls(r)||!r.argument_quotes) return "";
+  const cs=(r.arguments||[]).filter(c=>r.argument_quotes[c]);
+  Object.keys(r.argument_quotes).forEach(c=>{if(r.argument_quotes[c]&&!cs.includes(c)) cs.push(c);});
+  if(!cs.length) return "";
+  const open=OPENQ.has(r.id), id="aq-"+r.id, n=cs.length;
+  return '<div class="qfoot"><button type="button" class="qtog" data-q="'+esc(r.id)+'" aria-expanded="'+open+
+    '" aria-controls="'+esc(id)+'" aria-label="'+(open?"Hide":"Show")+" argument quotes ("+n+')">'+
+    '<span class="car" aria-hidden="true">&#9662;</span>Argument quotes ('+n+")</button></div>"+
+    '<div class="qlist" id="'+esc(id)+'"'+(open?"":" hidden")+'><ul class="alist">'+cs.map(c=>
+      '<li><a href="#argument/'+encodeURIComponent(c)+'">'+esc(argName(c))+"</a>"+
+      '<blockquote class="q">&ldquo;'+esc(r.argument_quotes[c])+"&rdquo;</blockquote></li>").join("")+"</ul></div>";
+}
+function renderComments(){
+  const isD25=r=>(r.attributes||[]).includes("D25 partner");
+  const rows=DOCS.filter(r=>facetPass(r,null)&&textPass(r,qs.comments))
+    .map((r,i)=>[r,i]).sort((a,b)=>(isD25(b[0])-isD25(a[0]))||(a[1]-b[1])).map(x=>x[0]);   // D25 partners first, otherwise unchanged
+  el("count").innerHTML='<span class="num">'+fmt(rows.length)+"</span> <span>of "+fmt(DOCS.length)+" filings</span>";
+  const page=rows.slice(0,shown);
+  let html=page.length?page.map(card).join(""):
+    '<div class="empty">No filings match. Remove a filter or widen the search.</div>';
+  el("results").innerHTML=html;
+  if(rows.length>shown){
+    const b=document.createElement("button"); b.className="more2"; b.type="button";
+    b.textContent="Show "+Math.min(PAGE,rows.length-shown)+" more of "+fmt(rows.length-shown)+" remaining";
+    b.onclick=()=>{shown+=PAGE;render();};
+    el("results").appendChild(b);
+  }
+  return rows;
+}
+
+/* ---------- view: argument index ---------- */
+function argStats(){
+  const recs=DOCS.filter(isCls);   // argument views ignore the comment-view filters
+  const by={}; ORDER.forEach(a=>by[a.code]=[]);
+  recs.forEach(r=>new Set(r.arguments||[]).forEach(c=>{(by[c]=by[c]||[]).push(r);}));
+  const st={}; let max=1;
+  Object.keys(by).forEach(c=>{st[c]=tally(by[c]); max=Math.max(max,st[c].n);});
+  return {st,max,by};
+}
+function argMatches(a,q){
+  if(!q) return true;
+  const h=(a.code+" "+a.label+" "+(a.va_title||"")).toLowerCase();
+  return qtoks(q).every(t=>h.includes(t));
+}
+function arow(a,t,max){
+  const gap=a.section==="GAP";
+  return '<a class="arow'+(t.n?"":" zero")+(gap?" gap":"")+'" href="#argument/'+encodeURIComponent(a.code)+'">'+
+    '<span class="acode">'+esc(a.code)+"</span>"+
+    '<span class="alabel">'+esc(shortLabel(a))+(gap&&sortMode!=="outline"?'<span class="gtag">Not in outline</span>':"")+"</span>"+
+    '<span class="acount">'+fmt(t.n)+"</span>"+
+    '<span class="asplit">'+splitBar(t,max)+'<span class="stxt">'+esc(splitText(t)||"—")+"</span></span>"+
+    '<span class="akind ktxt">'+esc(t.n?kindText(t):"—")+"</span></a>";
+}
+const AHDR='<div class="ahdr" aria-hidden="true"><span>Code</span><span>Argument</span><span class="r">Filings</span>'+
+  "<span>Position</span><span>Org · Individual</span></div>";
+function gapIntro(){
+  return '<p>VA&rsquo;s response to comments in the final rule is organised under headings. The arguments below '+
+    "appear in filings but have no heading of their own in that outline. That describes the structure of VA&rsquo;s "+
+    "response document; it does not show whether VA considered the argument.</p>"+
+    (META.va_not_addressed_note?'<p>For context, VA&rsquo;s response notes that it does not address &ldquo;'+
+      esc(META.va_not_addressed_note)+"&rdquo;. This browser does not judge whether any argument here falls in that category.</p>":"");
+}
+function filterNote(){
+  const n=Object.values(sel).reduce((a,s)=>a+(s?s.size:0),0);
+  return n?'<p class="ixnote">The '+n+" filter"+(n===1?"":"s")+" set in the comment view "+(n===1?"does":"do")+
+    " not apply here; these counts cover all filings.</p>":"";
+}
+const OPENIX=new Set();   // argument-index sections the reader has opened
+document.addEventListener("toggle",e=>{
+  const d=e.target; if(!d.classList||!d.classList.contains("asect")||qs.arguments) return;
+  d.open?OPENIX.add(d.dataset.s):OPENIX.delete(d.dataset.s);
+},true);
+let secPick="all";       // section chips on the argument index
+function argCard(a,t,vaCodes){
+  const L=a.leads||{}, nO=(t.pos||{}).Oppose||0, nS=(t.pos||{}).Support||0;
+  const lead=((nS>nO?L.Support:L.Oppose)||L.Oppose||L.Support||[])[0];
+  const pos=!t.n?"":nO>nS?"Oppose":nS>nO?"Support":"Mixed";
+  const meta=[esc(a.section==="GAP"?"Not in VA’s outline":"Section "+a.section+" · "+a.code),
+    '<b class="num">'+fmt(t.n)+"</b> indexed filing"+(t.n===1?"":"s")];
+  if(t.n) meta.push(esc(splitText(t)));
+  const tags=[];
+  if(Object.values(L).some(v=>v.length)) tags.push('<span class="tg">Strongest versions</span>');
+  if(vaCodes.has(a.code)) tags.push('<span class="tg">VA answered a specific comment</span>');
+  return '<a class="entry acard'+(t.n?"":" zero")+'" data-pos="'+pos+'" href="#argument/'+encodeURIComponent(a.code)+'">'+
+    '<span class="ehead"><span class="stripe"></span><span class="emain">'+
+      '<span class="org">'+markAll(shortLabel(a),qtoks(qs.arguments))+"</span>"+
+      '<span class="erow">'+meta.join("<span class='bull'></span>")+"</span>"+
+      (tags.length?'<span class="runs"><span class="run" data-f="arg">'+tags.join("")+"</span></span>":"")+
+      (lead?'<span class="excerpt"><span class="exlab">Strongest version:</span> '+esc(lead.version)+"</span>":"")+
+    "</span>"+
+    '<span class="easide"><svg class="chev side" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></span></span></a>';
+}
+function renderArgIndex(){
+  const {st,by}=argStats(), q=qs.arguments;
+  const vaCodes=new Set(); DOCS.forEach(r=>(r.va_responds||[]).forEach(v=>vaCodes.add(v.code)));
+  const list=ORDER.filter(a=>argMatches(a,q)&&(secPick==="all"||a.section===secPick));
+  el("count").innerHTML='<span class="num">'+fmt(list.length)+"</span> <span>of "+fmt(ORDER.length)+" arguments</span>";
+  const chip=(v,lab)=>'<button type="button" class="secchip" data-sec="'+esc(v)+'" aria-pressed="'+(secPick===v)+'">'+esc(lab)+"</button>";
+  let html='<div class="ixtop"><div class="mode" role="group" aria-label="Sort arguments">'+
+    '<button type="button" data-sort="outline" aria-pressed="'+(sortMode==="outline")+'">Outline order</button>'+
+    '<button type="button" data-sort="most" aria-pressed="'+(sortMode==="most")+'">Most raised</button></div>'+
+    '<div class="secchips" role="group" aria-label="Section">'+chip("all","All")+
+      SECTIONS.map(s=>chip(s.code,s.code==="GAP"?"Other":s.code)).join("")+"</div></div>"+filterNote();
+  if(!list.length){
+    el("results").innerHTML=html+'<div class="empty" style="margin-top:1rem">No argument matches.</div>';
+    return;
+  }
+  if(sortMode==="most"){
+    html+=list.slice().sort((a,b)=>st[b.code].n-st[a.code].n||ORDIX[a.code]-ORDIX[b.code]).map(a=>argCard(a,st[a.code],vaCodes)).join("");
+  }else{
+    SECTIONS.forEach(s=>{
+      const rows=list.filter(a=>a.section===s.code); if(!rows.length) return;
+      html+='<div class="secdiv'+(s.code==="GAP"?" gap":"")+'"><span>'+esc(s.code==="GAP"?"Other arguments":"Section "+s.code)+
+        "</span> · "+esc(s.code==="GAP"?"Not in VA’s response outline":s.title)+"</div>"+
+        (s.code==="GAP"?'<div class="gapnote">'+gapIntro()+"</div>":"")+
+        rows.map(a=>argCard(a,st[a.code],vaCodes)).join("");
+    });
+  }
+  el("results").innerHTML=html;
+}
+
+/* ---------- view: one argument ---------- */
+function vaPanel(a){
+  if(a.section==="GAP"||!a.in_outline){
+    return '<section class="vapanel gap" aria-label="VA’s response">'+
+      "<p>VA&rsquo;s response-to-comments outline in the final rule has no heading for this argument. "+
+      "That describes the structure of VA&rsquo;s response; it does not show whether VA considered it.</p>"+
+      (META.va_not_addressed_note?"<p>For context, VA&rsquo;s response notes that it does not address &ldquo;"+
+        esc(META.va_not_addressed_note)+"&rdquo;. This browser does not judge whether this argument falls in that category.</p>":"")+
+      "</section>";
+  }
+  /* va_heading is VA's own heading, kept out of va_text by the build */
+  const paras=(Array.isArray(a.va_text)?a.va_text:[]).map(x=>String(x||"").trim()).filter(Boolean);
+  const P=x=>"<p>"+esc(x)+"</p>";
+  const head=paras.slice(0,3), rest=paras.slice(3);
+  return '<section class="vapanel" aria-label="VA’s response">'+
+
+    (paras.length?head.map(P).join(""):"<p>No response passage was extracted for this heading.</p>")+
+    (rest.length?'<div id="varest"'+(vaOpen?"":" hidden")+">"+rest.map(P).join("")+"</div>"+
+      '<button type="button" class="vamore" id="vamore" aria-expanded="'+vaOpen+'" aria-controls="varest">'+
+      (vaOpen?"Show less":"Show full response ("+rest.length+" more paragraph"+(rest.length===1?"":"s")+")")+"</button>":"")+
+    "</section>";
+}
+function qcard(r,code){
+  const pos=isCls(r)?posClass(r.position):"", quote=r.argument_quotes&&r.argument_quotes[code], va=vaResp(r,code);
+  return '<article class="entry" data-pos="'+esc(pos)+'" data-open="'+esc(r.id)+'">'+
+    '<div class="ehead"><span class="stripe"></span><span class="emain">'+
+      '<button type="button" class="orgbtn" data-open="'+esc(r.id)+'">'+markAll(nameOf(r),qtoks(qs.argument))+"</button>"+
+      '<span class="erow">'+metaRow(r)+"</span>"+
+      (quote?'<p class="excerpt">&ldquo;'+markAll(quote,qtoks(qs.argument))+"&rdquo;</p>":"")+
+      (va?'<p class="excerpt"><span class="exlab">VA responds:</span> '+esc(va.sentence)+"</p>":"")+
+    "</span>"+
+    '<span class="easide">'+badge(r)+'<svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></span></div></article>';
+}
+function qcardOld(r,code){
+  const quote=r.argument_quotes&&r.argument_quotes[code];
+  const toks=qtoks(qs.argument);
+  return '<article class="card qcard" data-open="'+esc(r.id)+'"><div class="chead"><h3>'+
+    '<button type="button" class="orgbtn" data-open="'+esc(r.id)+'">'+markAll(nameOf(r),toks)+"</button></h3>"+badge(r)+"</div>"+
+    '<div class="meta erow">'+metaRow(r)+"</div>"+
+    (quote?'<blockquote class="q">&ldquo;'+markAll(quote,toks)+"&rdquo;</blockquote>":
+      (vaResp(r,code)?"":'<p class="noq">No quotation was recorded for this argument on this filing.</p>'))+
+    (vaResp(r,code)?'<div class="vaon"><span class="vatag">VA responds to this comment</span><p>&ldquo;'+
+      esc(vaResp(r,code).sentence)+"&rdquo;</p></div>":"")+
+    "</article>";
+}
+const STRONGEST_DEF="How the strongest versions are chosen. Up to eight filings per side are shortlisted from those raising this argument, favouring filings with legal analysis, published citations or data. Each is scored 0 to 2 on four criteria: Support (cites specific law, data or research), Specificity (tied to VA, its statutes or veterans' circumstances), Engagement (answers the reasoning VA gives in its response; counted double) and Completeness (premise, reasoning and consequence followed through), for a total out of 10. Filings scoring 8 or more that make this argument are grouped into distinct versions: different legal theories, factual grounds, groups harmed or flaws found in VA's reasoning. The versions are then ranked by direct comparison: which is hardest for VA's response to set aside. Who filed and whether the argument is correct are not scored. For arguments outside VA's response outline there is no VA passage to engage, so Engagement is not scored: the total is the other three criteria, out of 6, and a version needs 5 or more. Selections are made by an AI-assisted review and have not yet been reviewed by a person.";
+const ALLOPEN=new Set();   // argument pages whose "all filings" list the reader has opened
+const STRONGEST_BTN='<button class="def" type="button" data-t="Strongest" data-d="'+esc(STRONGEST_DEF)+'">Strongest</button>';
+const SIDE_HEAD={Oppose:"Opposing the rule",Support:"Supporting the rule"};
+function leadCard(l,n){
+  const r=BYID[l.lead]; if(!r) return "";
+  const also=(l.also||[]).filter(d=>BYID[d]);
+  return '<article class="lead" data-open="'+esc(l.lead)+'">'+
+    '<span class="lrank" aria-hidden="true">'+n+"</span><div class=\"lbody\">"+
+    (l.version?'<span class="lver">'+esc(l.version)+"</span>":"")+
+    '<blockquote class="q">&ldquo;'+esc(l.excerpt)+"&rdquo;</blockquote>"+
+    '<div class="lwho"><button type="button" class="orgbtn" data-open="'+esc(l.lead)+'">'+esc(nameOf(r))+"</button>"+badge(r)+
+      "</div>"+
+    (also.length?'<div class="lalso">Also argued by '+also.map(d=>'<button type="button" class="linkish" data-open="'+esc(d)+'">'+
+      esc(nameOf(BYID[d]))+"</button>").join(", ")+"</div>":"")+
+    '<div class="lva'+(l.va_answers?"":" none")+'"><span class="cap">VA&rsquo;s answer</span>'+
+      (l.va_answers&&l.va_quote?'<p>&ldquo;'+esc(l.va_quote)+"&rdquo;</p>":
+        "<p>VA&rsquo;s response passage does not answer this version.</p>")+
+      (l.va_note?'<p class="lvn">'+esc(l.va_note)+"</p>":"")+"</div></div></article>";
+}
+function leadsHTML(a){
+  const L=a.leads||{}, sides=["Oppose","Support"].filter(s=>(L[s]||[]).length);
+  if(!sides.length) return '<section class="leads"><h3 class="colh">'+STRONGEST_BTN+' versions</h3>'+
+    '<p class="noleads">Strongest versions have not been selected for this argument yet. Every filing that raises it is listed below.</p></section>';
+  return '<section class="leads"><h3 class="colh">'+STRONGEST_BTN+' versions</h3>'+
+    sides.map(s=>'<div class="lside"><h4>'+esc(SIDE_HEAD[s])+"</h4>"+L[s].map((l,i)=>leadCard(l,i+1)).join("")+"</div>").join("")+"</section>";
+}
+function renderArgPage(){
+  const a=ARG[argCode];
+  if(!a){
+    el("count").innerHTML="";
+    el("results").innerHTML='<a class="back" href="#arguments">&larr; All arguments</a>'+
+      '<div class="empty" style="margin-top:1rem">There is no argument with the code &ldquo;'+esc(argCode)+"&rdquo;.</div>";
+    return [];
+  }
+  const all=DOCS.filter(r=>raises(r,a.code));
+  const rows=DOCS.filter(r=>raises(r,a.code)&&textPass(r,qs.argument,a.code));
+  const t=tally(rows), S=SECT[a.section];
+  el("count").innerHTML='<span class="num">'+fmt(rows.length)+"</span> <span>of "+fmt(all.length)+" filings</span>";
+  let html='<a class="back" href="#arguments">&larr; All arguments</a>'+
+    '<div class="ahead"><span class="cap">'+esc(a.section==="GAP"?"Not in VA’s response outline":
+      "Section "+a.section+(S?" · "+S.title:""))+"</span>"+
+    '<h2><span class="hc">'+esc(a.code)+"</span>"+esc(shortLabel(a))+"</h2>"+
+    '<div class="asum"><span><b>'+fmt(rows.length)+"</b> indexed filing"+(rows.length===1?"":"s")+" raise this argument"+
+      (rows.length!==all.length?" and match the search ("+fmt(all.length)+" in all)":"")+"</span>"+
+      (rows.length?'<span class="sbw" title="'+esc(splitText(t)+" · "+kindText(t))+'">'+splitBar(t,rows.length,splitText(t)+" · "+kindText(t))+"</span>":"")+"</div></div>"+
+    '<div class="argtop">'+leadsHTML(a)+'<div class="vacol"><h3 class="colh">VA&rsquo;s response</h3>'+
+      '<h4 class="colsub">Final rule · '+(a.in_outline&&a.va_page?'<a href="'+esc(META.final_rule_url+"#page-"+a.va_page)+'" target="_blank" rel="noopener">90 FR '+
+        esc(a.va_page)+"</a>":"no heading for this argument")+"</h4>"+vaPanel(a)+"</div></div>";
+  const hasLeads=Object.values(a.leads||{}).some(v=>v.length);
+  const open=!hasLeads||!!qs.argument||ALLOPEN.has(a.code);
+  const page=rows.slice(0,shown);
+  html+='<details class="allf" data-a="'+esc(a.code)+'"'+(open?" open":"")+'><summary><span class="tw" aria-hidden="true">&#9656;</span>'+
+    "<span>All "+fmt(rows.length)+" indexed filing"+(rows.length===1?"":"s")+" raising this argument</span></summary>"+
+    filterNote()+'<div class="fhd">'+LEGEND+"</div>"+
+    (page.length?page.map(r=>qcard(r,a.code)).join(""):
+      '<div class="empty">'+(all.length?"No filing raising this argument matches the search.":
+        "No classified filing raises this argument.")+"</div>")+
+    (rows.length>shown?'<button type="button" class="more2" id="argmore">Show '+Math.min(PAGE,rows.length-shown)+
+      " more of "+fmt(rows.length-shown)+" remaining</button>":"")+"</details>";
+  el("results").innerHTML=html;
+  const mb=el("argmore"); if(mb) mb.onclick=()=>{shown+=PAGE;render();};
+  document.querySelectorAll(".lead blockquote.q").forEach(q=>{
+    if(q.scrollHeight>q.clientHeight+4){
+      const b=document.createElement("button"); b.type="button"; b.className="qmore"; b.textContent="Show full excerpt";
+      b.setAttribute("aria-expanded","false");
+      b.onclick=e=>{e.stopPropagation(); const o=q.classList.toggle("open");
+        b.textContent=o?"Show less":"Show full excerpt"; b.setAttribute("aria-expanded",String(o));};
+      q.after(b);
+    }});
+  return rows;
+}
+
+/* ---------- render ---------- */
+const PLACEHOLDER={comments:"Search organization names and comment text",
+  arguments:"Filter arguments by label or code…",argument:"Search these filings and their quotations…"};
+function render(){
+  document.querySelectorAll(".viewsw button").forEach(b=>
+    b.setAttribute("aria-pressed",(b.dataset.v==="comments")===(view==="comments")?"true":"false"));
+  const inp=el("q"); inp.placeholder=PLACEHOLDER[view];
+  if(document.activeElement!==inp) inp.value=qs[view];
+  const rail=view==="comments";
+  el("cols").classList.toggle("norail",!rail);
+  el("rail").hidden=!rail; el("chips").hidden=!rail;
+  if(rail) document.querySelectorAll("#rail details.fct").forEach(paintFacet);
+  buildChips();
+  if(view==="comments") renderComments();
+  else if(view==="arguments") renderArgIndex();
+  else renderArgPage();
+}
+
+/* ---------- routing ---------- */
+function parseHash(){
+  let h=location.hash.slice(1);
+  try{h=decodeURIComponent(h);}catch(e){}
+  if(h==="arguments") return {view:"arguments"};
+  if(h.startsWith("argument/")) return {view:"argument",code:h.slice(9)};
+  return {view:"comments"};
+}
+function route(){
+  if(location.hash==="#method"){openMethod();return;}
+  closeDoc(false);
+  const r=parseHash(), changed=r.view!==view||r.code!==argCode;
+  view=r.view; argCode=r.code||null;
+  if(changed){shown=PAGE; vaOpen=false;}
+  el("q").value=qs[view];
+  render();
+  fullTextIfNeeded();
+  if(changed){
+    const y=el("cols").getBoundingClientRect().top+window.scrollY-stickyH()-8;
+    if(window.scrollY>y) window.scrollTo(0,Math.max(0,y));
+  }
+}
+function stickyH(){
+  return getComputedStyle(el("tools")).position==="sticky"?el("tools").offsetHeight:0;
+}
+window.addEventListener("hashchange",route);
+
+/* ---------- document pop-up ---------- */
+const textCache={};          // id -> Promise<{comment_box,text,is_ocr,truncated}|null>
+let docSeq=0, docId=null, lastFocus=null;
+function fetchText(id){
+  if(!textCache[id]) textCache[id]=fetch("data/text/"+encodeURIComponent(id)+".json",{cache:"no-cache"})
+    .then(r=>r.ok?r.json():null).catch(()=>null);
+  return textCache[id];
+}
+function tagGroup(k,list,label){
+  if(!list.length) return "";
+  return '<div class="dsec" data-f="'+FCOL[k]+'"><h4>'+esc(label||LABEL[k])+'</h4><div class="taglist">'+
+    list.map(v=>'<span class="tg">'+esc(dispVal(k,v))+"</span>").join("")+"</div></div>";
+}
+function openDoc(id){
+  const r=BYID[id]; if(!r) return;
+  const seq=++docSeq; docId=id;
+  if(!el("doc").hasAttribute("open")) lastFocus=document.activeElement;
+  const hl=view==="argument"&&argCode&&r.argument_quotes?[r.argument_quotes[argCode]]:qtoks(qs[view==="comments"?"comments":"none"]);
+  let h='<button type="button" class="docx" id="docx">Close</button>'+
+    '<span class="cap">Document '+esc(r.id)+"</span>"+
+    '<h2 id="doctitle">'+esc(nameOf(r))+"</h2>"+
+    '<div class="erow">'+metaRow(r)+"</div>"+badge(r);
+  if(isCls(r)){
+    if(r.position_quote) h+='<div class="dsec" data-f="pos"><h4>Position</h4><blockquote class="q">&ldquo;'+
+      esc(r.position_quote)+"&rdquo;</blockquote></div>";
+    const as=r.arguments||[];
+    if(as.length) h+='<div class="dsec" data-f="arg"><h4>Arguments</h4><div class="taglist">'+as.map(c=>
+      '<a class="tg" href="#argument/'+encodeURIComponent(c)+'" title="'+esc(argName(c))+'">'+
+      esc(ARG[c]?shortLabel(ARG[c]):c)+"</a>").join("")+"</div></div>";
+    h+='<div class="groups">'+tagGroup("sub",vals(r,"sub"),subLabel(r))+tagGroup("filing",vals(r,"filing"))+
+      tagGroup("ev",vals(r,"ev"))+tagGroup("attr",vals(r,"attr"))+"</div>";
+    OPENQ.delete(r.id);                       // quotes start hidden every time the card opens
+    h+='<div class="dquotes">'+quoteToggle(r)+"</div>";
+  }else{
+    h+='<p class="dnote">'+esc(r.status==="pending"?"Classification pending: this filing carries no labels yet.":
+      "Not yet classified: this filing carries no labels.")+"</p>";
+  }
+  h+='<div class="actions" style="margin-top:1rem"><a class="btn primary" href="'+esc(r.url)+
+    '" target="_blank" rel="noopener">View on regulations.gov</a></div>'+
+    '<div class="dsec"><h4>Comment box</h4><div class="cbox" id="dcbox">'+(r.comment?markAll(r.comment,hl):"<i>Empty</i>")+"</div></div>"+
+    '<div class="dsec"><h4>Attachment text</h4><div id="dnotes"></div><div class="body-text" id="dtext">Loading&hellip;</div></div>';
+  el("docbox").innerHTML=h;
+  el("doc").setAttribute("open",""); document.body.classList.add("noscroll");
+  el("doc").scrollTop=0; el("docx").focus();
+  fetchText(id).then(d=>{
+    if(seq!==docSeq||docId!==id) return;      // a newer document was opened meanwhile
+    const tx=el("dtext"); if(!tx) return;
+    if(!d){tx.textContent="The text of this filing could not be loaded."; return;}
+    if(d.comment_box&&d.comment_box.length>(r.comment||"").length) el("dcbox").innerHTML=markAll(d.comment_box,hl);
+    const notes=[];
+    if(d.is_ocr) notes.push("This text was produced by OCR and may contain recognition errors.");
+    if(d.truncated) notes.push("This text is truncated. Open the filing on regulations.gov for the full document.");
+    el("dnotes").innerHTML=notes.map(n=>'<p class="dnote">'+esc(n)+"</p>").join("");
+    if(!d.text){tx.textContent=r.has_attachment?"No text was extracted from the attachment.":"This filing has no attachment."; return;}
+    tx.innerHTML=markAll(d.text,hl);
+    const m=tx.querySelector("mark"); if(m) tx.scrollTop=Math.max(0,m.offsetTop-tx.offsetTop-60);
+  });
+}
+function closeDoc(restore){
+  if(!el("doc").hasAttribute("open")) return;
+  docSeq++; docId=null;
+  el("doc").removeAttribute("open"); document.body.classList.remove("noscroll");
+  if(restore!==false&&lastFocus&&document.contains(lastFocus)) lastFocus.focus();
+}
+el("doc").addEventListener("click",e=>{
+  if(e.target.closest('a[href^="#"]')){closeDoc(false);return;}   // same-page link: hashchange may not fire
+  if(e.target.id==="doc"||e.target.id==="docx") closeDoc();
+});
+
+/* ---------- wiring ---------- */
+document.addEventListener("click",e=>{
+  const tg=e.target.closest(".qtog");
+  if(tg){
+    const id=tg.dataset.q, list=document.getElementById(tg.getAttribute("aria-controls"));
+    const open=tg.getAttribute("aria-expanded")!=="true", n=list?list.querySelectorAll("li").length:0;
+    open?OPENQ.add(id):OPENQ.delete(id);
+    tg.setAttribute("aria-expanded",String(open));
+    tg.setAttribute("aria-label",(open?"Hide":"Show")+" argument quotes ("+n+")");
+    if(list) list.hidden=!open;
+    return;
+  }
+  if(e.target.closest(".doc")||e.target.closest("a")) return;
+  if(e.target.closest(".qlist")) return;
+  const o=e.target.closest("[data-open]"); if(!o) return;
+  if(String(window.getSelection&&window.getSelection())) return;   // let people select text
+  openDoc(o.dataset.open);
+});
+el("results").addEventListener("click",e=>{
+  const sc=e.target.closest("[data-sec]");
+  if(sc){secPick=sc.dataset.sec; render(); return;}
+  const s=e.target.closest("[data-sort]");
+  if(s){sortMode=s.dataset.sort; render(); return;}
+  if(e.target.closest("#vamore")){vaOpen=!vaOpen; render();}
+});
+document.querySelectorAll(".viewsw button").forEach(b=>b.addEventListener("click",()=>{
+  location.hash=b.dataset.v==="comments"?"#comments":"#arguments";
+}));
+let tmr;
+el("q").addEventListener("input",e=>{
+  qs[view]=e.target.value.trim().toLowerCase(); shown=PAGE;
+  clearTimeout(tmr); tmr=setTimeout(()=>{render(); fullTextIfNeeded();},120);
+});
+el("clearall").addEventListener("click",()=>{
+  if(view==="comments") for(const k in sel) delete sel[k];
+  qs[view]=""; el("q").value=""; shown=PAGE; render();});
+/* delegated, so definitions drawn after load (e.g. on argument pages) work too */
+document.addEventListener("click",e=>{
+  const b=e.target.closest(".def"); if(!b) return;
+  e.stopPropagation();
+  el("poptitle").textContent=b.dataset.t; el("popbody").textContent=b.dataset.d;
+  el("pop").setAttribute("open","");},true);
+const closePop=()=>el("pop").removeAttribute("open");
+el("pop").addEventListener("click",e=>{if(e.target.id==="pop")closePop();});
+el("popclose").addEventListener("click",closePop);
+document.addEventListener("keydown",e=>{if(e.key==="Escape"){closePop();closeDoc();}});
+
+/* ---------- CSV of whatever is on screen ---------- */
+function csvCell(v){
+  let s=Array.isArray(v)?v.join("; "):String(v==null?"":v);
+  if(/^[=+\-@\t\r]/.test(s)) s="'"+s;           // keep spreadsheets from evaluating it
+  return '"'+s.replace(/"/g,'""')+'"';
+}
+function exportCSV(){
+  let head, rows, name;
+  const recCols=["Document ID","URL","Commenter","Organization","Title","Date","Commenter type","Commenter sub-type","Status",
+    "Position","Sent by (family size)","Filing type","Evidence offered","Commenter attributes","Arguments"];
+  /* names only for organizations; individuals appear as "Individual commenter" */
+  const org=r=>r.kind==="Organization";
+  const recRow=r=>[r.id,r.url,nameOf(r),org(r)?r.org:"",org(r)?r.title:"",r.date,r.kind,r.subtype||"",r.status,r.position||"",
+    r.family_size||"",r.filing||[],r.evidence||[],r.attributes||[],r.arguments||[]];
+  if(view==="comments"){
+    head=recCols.concat(["Comment (first 600 characters)"]);
+    rows=DOCS.filter(r=>facetPass(r,null)&&textPass(r,qs.comments)).map(r=>recRow(r).concat([r.comment]));
+    name="comments";
+  }else if(view==="argument"&&ARG[argCode]){
+    head=recCols.concat(["Quotation for "+argCode]);
+    rows=DOCS.filter(r=>raises(r,argCode)&&facetPass(r,null)&&textPass(r,qs.argument,argCode))
+      .map(r=>recRow(r).concat([r.argument_quotes?r.argument_quotes[argCode]:""]));
+    name="argument_"+argCode;
+  }else{
+    const {st}=argStats();
+    head=["Code","Argument","Section","In VA outline","VA heading","Filings","Oppose","Mixed","Neutral or technical",
+      "Support","Organization","Individual"];
+    rows=ORDER.filter(a=>argMatches(a,qs.arguments)).map(a=>{const t=st[a.code];
+      return [a.code,shortLabel(a),a.section,a.in_outline?"yes":"no",a.va_title||"",t.n,t.pos.Oppose,t.pos.Mixed,
+        t.pos.Neutral,t.pos.Support,t.kind.Organization,t.kind.Individual];});
+    name="arguments";
+  }
+  const filt=[];
+  if(view==="comments") for(const k in sel) if(sel[k].size) filt.push(LABEL[k]+" = "+[...sel[k]].map(v=>dispVal(k,v)).join(" OR "));
+  if(qs[view]) filt.push("Search = "+qs[view]);
+  const pre=[["AI-assisted classifications; human-level audit not yet complete. Counts are filings, not people."],
+    ["Filters: "+(filt.join("; ")||"none")]];
+  const body=pre.concat([head],rows).map(r=>r.map(csvCell).join(",")).join("\r\n");
+  const url=URL.createObjectURL(new Blob(["﻿"+body],{type:"text/csv;charset=utf-8"}));
+  const a=document.createElement("a"); a.href=url;
+  a.download=(META.docket||"VA-2025-VHA-0073")+"_"+name.replace(/[^A-Za-z0-9._-]/g,"_")+".csv";
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+el("csv").addEventListener("click",exportCSV);
+
+/* the sticky banner and toolbar change height as they wrap; the rail sits under both */
+function measure(){
+  document.documentElement.style.setProperty("--proto-h","0px");
+  document.documentElement.style.setProperty("--tools-h",el("tools").offsetHeight+"px");
+}
+if(window.ResizeObserver){const ro=new ResizeObserver(measure); ro.observe(el("tools"));}
+window.addEventListener("resize",measure);
+
+/* ---------- methodology panel ---------- */
+function openMethod(){
+  const w=el("methodwrap"); w.open=true; w.querySelectorAll("details.sub").forEach(d=>d.open=true);
+  el("method").scrollIntoView();
+}
+document.querySelectorAll('a[href="#method"]').forEach(a=>a.addEventListener("click",e=>{
+  e.preventDefault(); openMethod();}));
+
+/* ---------- boot ---------- */
+function setText(id,v){const n=el(id); if(n) n.textContent=v;}
+(async()=>{
+  try{
+    const [c,g]=await Promise.all([fetch("data/comments.json",{cache:"no-cache"}).then(r=>r.json()),fetch("data/arguments.json",{cache:"no-cache"}).then(r=>r.json())]);
+    META=c; DOCS=c.records||[]; DOCS.forEach(r=>BYID[r.id]=r);
+    SECTIONS=g.sections||[]; SECTIONS.forEach(s=>SECT[s.code]=s);
+    ARGS=g.arguments||[]; ARGS.forEach((a,i)=>{ARG[a.code]=a; a._i=i;});
+    /* any code on a record that the outline file does not define still gets a row */
+    DOCS.forEach(r=>(r.arguments||[]).forEach(code=>{ if(!ARG[code]){
+      const a={code,label:code,section:"GAP",va_title:"",in_outline:false,va_page:null,va_text:[],_i:1e6};
+      ARG[code]=a; ARGS.push(a);} }));
+    if(!SECT.GAP){const s={code:"GAP",title:"Arguments not in VA’s response outline"};SECTIONS.push(s);SECT.GAP=s;}
+    /* outline order: VA's sections in order; within one, the section-level
+       heading (e.g. "IV") first, then the file's own order */
+    ORDER=[];
+    SECTIONS.forEach(s=>ORDER.push(...ARGS.filter(a=>a.section===s.code)
+      .sort((a,b)=>(a.code===s.code?-1:0)-(b.code===s.code?-1:0)||a._i-b._i)));
+    ARGS.filter(a=>!SECT[a.section]).forEach(a=>{a.section="GAP";ORDER.push(a);});
+    ORDER.forEach((a,i)=>ORDIX[a.code]=i);
+
+    setText("f-count",fmt(META.count));
+    {const org=DOCS.filter(r=>r.kind==="Organization").length;
+     setText("f-org",fmt(org)); setText("f-ind",fmt(DOCS.length-org));
+     {const ind=DOCS.length-org;
+      [["seg-org",org],["seg-ind",ind],["part-org",org],["part-ind",ind]].forEach(([i,n])=>{const e=el(i); if(e) e.style.flex=String(Math.max(n,1))+" 1 0";});
+      const sp=el("ix-split"); if(sp) sp.setAttribute("aria-label",fmt(org)+" organizations and "+fmt(ind)+" individuals");}
+     setText("t-va",(META.totals||{}).va_comments?fmt(META.totals.va_comments):"\u2013");
+}
+    const T=META.totals||{};
+
+    document.querySelectorAll("#method [data-t]").forEach(e=>{const v=T[e.dataset.t]; if(typeof v==="number") e.textContent=fmt(v);});
+    setText("m-count",fmt(META.count)); setText("m-sub",(META.subtitle||"").toLowerCase());
+    setText("m-cls",fmt(META.classified)); setText("m-pend",fmt(META.pending)); setText("m-uncl",fmt(META.unclassified));
+    setText("m-built",META.built||""); setText("m-cite",META.final_rule_cite||"90 FR 61310");
+    if(/^https:\/\//.test(META.final_rule_url||"")) el("rulelink").href=META.final_rule_url;
+
+    buildRail(); measure();
+    view=null; route();
+  }catch(err){
+    el("results").innerHTML='<div class="empty">The data could not be loaded. Serve this folder over HTTP '+
+      "(for example <code>python3 -m http.server</code>) rather than opening the file directly.</div>";
+  }
+})();
+</script>
+</body>
+</html>
