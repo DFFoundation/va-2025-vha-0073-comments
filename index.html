@@ -518,7 +518,8 @@ body{overflow-x:clip}
 .lva{margin-top:.6rem;border-left:3px solid var(--rail-line);padding:.1rem 0 .1rem .7rem}
 .lva p{margin:.2rem 0;font-size:.86rem;line-height:1.5}
 .lva.none p:first-of-type{font-weight:600}
-.lva .lvn{color:var(--muted);font-size:.8rem}
+.lva .lvn{color:var(--muted);font-size:.8rem;font-style:italic}
+.lva .lvn .lvl{font-style:normal;font-weight:640;margin-right:.3em}
 .allf{margin-top:1.4rem;border-top:1px solid var(--rule);padding-top:.6rem}
 .allf>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:.5rem;padding:.4rem 0;
   font:600 1rem/1.3 var(--serif);color:var(--ink)}
@@ -928,7 +929,9 @@ body.noscroll{overflow:hidden}
       Filings scoring at least 80% of the maximum are grouped into up to four distinct lines of reasoning, which are
       ranked by pairwise comparison; a filing that is the only one on its side to raise an argument is shown only if
       it reaches that threshold. Each version carries a verified verbatim excerpt and the sentence of VA&rsquo;s
-      passage that best answers it, or a note that the passage does not. That assessment is confined to the passage
+      passage that best answers it, or a note that the passage does not. Beneath it, an <i>assessment</i> states in one
+      sentence how far VA&rsquo;s answer meets that version; it is made in this analysis, by the same model-assisted review
+      that selects the versions, and is not VA&rsquo;s text. That assessment is confined to the passage
       under the relevant heading; VA may address the point elsewhere in the rule. Selections are model-generated
       and have not yet been reviewed by a person.</p>
      <p><b>VA responds to.</b> Sentences in which VA describes a specific commenter or small number of commenters
@@ -1511,7 +1514,7 @@ function leadCard(l,n){
     '<div class="lva'+(l.va_answers?"":" none")+'"><span class="cap">VA&rsquo;s answer</span>'+
       (l.va_answers&&l.va_quote?'<p>&ldquo;'+esc(l.va_quote)+"&rdquo;</p>":
         "<p>VA&rsquo;s response passage does not answer this version.</p>")+
-      (l.va_note?'<p class="lvn">'+esc(l.va_note)+"</p>":"")+"</div></div></article>";
+      (l.va_note?'<p class="lvn"><span class="lvl">Assessment:</span>'+esc(l.va_note)+"</p>":"")+"</div></div></article>";
 }
 function leadsHTML(a){
   const L=a.leads||{}, sides=["Oppose","Support"].filter(s=>(L[s]||[]).length);
