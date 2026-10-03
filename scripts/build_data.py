@@ -351,8 +351,11 @@ def main():
             "by_kind": {k: sum(r["kind"] == k for r in raised) for k in ("Organization", "Individual")},
         })
     leads = load_leads({r["id"] for r in recs})
+    lead_man = json.load(open(os.path.join(PROJ, "strongest_2026-10-02", "manifest.json")))["arguments"]
     for a in args:
         a["leads"] = leads.get(a["code"], {})
+        # judged = a judge saw at least one side; then no versions means none met the bar
+        a["leads_judged"] = any(v.get("judged") for v in (lead_man.get(a["code"]) or {}).values())
     print("lead statements: %d versions on %d arguments (%d reviewed 'keep')" % (
         sum(len(v) for x in leads.values() for v in x.values()), len(leads),
         sum(l["reviewed"] for x in leads.values() for v in x.values() for l in v)))

@@ -926,7 +926,8 @@ body.noscroll{overflow:hidden}
       support, specificity, engagement with VA&rsquo;s stated rationale (weighted double) and completeness, for a total
       of 0&ndash;10; for arguments outside VA&rsquo;s outline, engagement is not scored and the total is 0&ndash;6.
       Filings scoring at least 80% of the maximum are grouped into up to four distinct lines of reasoning, which are
-      ranked by pairwise comparison. Each version carries a verified verbatim excerpt and the sentence of VA&rsquo;s
+      ranked by pairwise comparison; a filing that is the only one on its side to raise an argument is shown only if
+      it reaches that threshold. Each version carries a verified verbatim excerpt and the sentence of VA&rsquo;s
       passage that best answers it, or a note that the passage does not. That assessment is confined to the passage
       under the relevant heading; VA may address the point elsewhere in the rule. Selections are model-generated
       and have not yet been reviewed by a person.</p>
@@ -1492,7 +1493,7 @@ function qcardOld(r,code){
       esc(vaResp(r,code).sentence)+"&rdquo;</p></div>":"")+
     "</article>";
 }
-const STRONGEST_DEF="How the strongest versions are chosen. Up to eight filings per side are shortlisted from those raising this argument, favouring filings with legal analysis, published citations or data. Each is scored 0 to 2 on four criteria: Support (cites specific law, data or research), Specificity (tied to VA, its statutes or veterans' circumstances), Engagement (answers the reasoning VA gives in its response; counted double) and Completeness (premise, reasoning and consequence followed through), for a total out of 10. Filings scoring 8 or more that make this argument are grouped into distinct versions: different legal theories, factual grounds, groups harmed or flaws found in VA's reasoning. The versions are then ranked by direct comparison: which is hardest for VA's response to set aside. Who filed and whether the argument is correct are not scored. For arguments outside VA's response outline there is no VA passage to engage, so Engagement is not scored: the total is the other three criteria, out of 6, and a version needs 5 or more. Selections are made by an AI-assisted review and have not yet been reviewed by a person.";
+const STRONGEST_DEF="How the strongest versions are chosen. Up to eight filings per side are shortlisted from those raising this argument, favouring filings with legal analysis, published citations or data. Each is scored 0 to 2 on four criteria: Support (cites specific law, data or research), Specificity (tied to VA, its statutes or veterans' circumstances), Engagement (answers the reasoning VA gives in its response; counted double) and Completeness (premise, reasoning and consequence followed through), for a total out of 10. Filings scoring 8 or more that make this argument are grouped into distinct versions: different legal theories, factual grounds, groups harmed or flaws found in VA's reasoning. Where only one filing on a side raises the argument, it is shown only if it scores 8 or more. The versions are then ranked by direct comparison: which is hardest for VA's response to set aside. Who filed and whether the argument is correct are not scored. For arguments outside VA's response outline there is no VA passage to engage, so Engagement is not scored: the total is the other three criteria, out of 6, and a version needs 5 or more. Selections are made by an AI-assisted review and have not yet been reviewed by a person.";
 const ALLOPEN=new Set();   // argument pages whose "all filings" list the reader has opened
 const STRONGEST_BTN='<button class="def" type="button" data-t="Strongest" data-d="'+esc(STRONGEST_DEF)+'">Strongest</button>';
 const SIDE_HEAD={Oppose:"Opposing the rule",Support:"Supporting the rule"};
@@ -1515,7 +1516,8 @@ function leadCard(l,n){
 function leadsHTML(a){
   const L=a.leads||{}, sides=["Oppose","Support"].filter(s=>(L[s]||[]).length);
   if(!sides.length) return '<section class="leads"><h3 class="colh">'+STRONGEST_BTN+' versions</h3>'+
-    '<p class="noleads">Strongest versions have not been selected for this argument yet. Every filing that raises it is listed below.</p></section>';
+    '<p class="noleads">'+(a.leads_judged?"No filing raising this argument met the bar for a strongest version. Every filing that raises it is listed below.":
+      "No filing is classified as making this argument, so none was ranked.")+"</p></section>";
   return '<section class="leads"><h3 class="colh">'+STRONGEST_BTN+' versions</h3>'+
     sides.map(s=>'<div class="lside"><h4>'+esc(SIDE_HEAD[s])+"</h4>"+L[s].map((l,i)=>leadCard(l,i+1)).join("")+"</div>").join("")+"</section>";
 }

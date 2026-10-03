@@ -175,7 +175,8 @@
 "reviewed": false
 }
 ]
-}
+},
+"leads_judged": true
 },
 {
 "code": "I.B",
@@ -256,7 +257,8 @@
 "reviewed": false
 }
 ]
-}
+},
+"leads_judged": true
 },
 {
 "code": "I.C.1",
@@ -313,7 +315,8 @@
 "reviewed": false
 }
 ]
-}
+},
+"leads_judged": true
 },
 {
 "code": "I.C.2",
@@ -369,7 +372,8 @@
 "reviewed": false
 }
 ]
-}
+},
+"leads_judged": true
 },
 {
 "code": "II.A",
@@ -447,7 +451,8 @@
 "reviewed": false
 }
 ]
-}
+},
+"leads_judged": true
 },
 {
 "code": "II.B",
@@ -586,7 +591,8 @@
 "reviewed": false
 }
 ]
-}
+},
+"leads_judged": true
 },
 {
 "code": "II.C",
@@ -720,7 +726,8 @@
 "reviewed": false
 }
 ]
-}
+},
+"leads_judged": true
 },
 {
 "code": "II.D",
@@ -840,7 +847,8 @@
 "reviewed": false
 }
 ]
-}
+},
+"leads_judged": true
 },
 {
 "code": "III.A",
@@ -925,7 +933,8 @@
 "reviewed": false
 }
 ]
-}
+},
+"leads_judged": true
 },
 {
 "code": "III.B",
@@ -980,7 +989,8 @@
 "reviewed": false
 }
 ]
-}
+},
+"leads_judged": true
 },
 {
 "code": "III.C",
@@ -1005,7 +1015,23 @@
 "Organization": 2,
 "Individual": 1
 },
-"leads": {}
+"leads": {
+"Oppose": [
+{
+"rank": 1,
+"version": "VA will lose clinicians able to deliver emergency abortion care",
+"lead": "VA-2025-VHA-0073-3545",
+"excerpt": "Under the proposed rule, as under EMTALA, any Veteran in the US who has a life threatening complication of pregnancy should be able to get emergency care, including abortion if there is no other option. My Ob-GYN colleagues specialized in Maternal-Fetal Medicine point out that this care, whether life-saving for both mother and fetus or for mother only, is technically difficult. With this regulation in place, who will be left within the VA system with the training and experience to give this care?",
+"also": [],
+"beats_next": "",
+"va_quote": "This rule will not impact VA's responsibilities and obligations under section 1784A.",
+"va_answers": true,
+"va_note": "VA affirms its emergency obligations continue but does not address whether VA will retain clinicians trained to perform the stabilizing care.",
+"reviewed": false
+}
+]
+},
+"leads_judged": true
 },
 {
 "code": "III.D",
@@ -1073,7 +1099,8 @@
 "reviewed": false
 }
 ]
-}
+},
+"leads_judged": true
 },
 {
 "code": "III.E",
@@ -1151,7 +1178,8 @@
 "reviewed": false
 }
 ]
-}
+},
+"leads_judged": true
 },
 {
 "code": "III.F.1",
@@ -1217,7 +1245,8 @@
 "reviewed": false
 }
 ]
-}
+},
+"leads_judged": true
 },
 {
 "code": "III.F.2",
@@ -1295,7 +1324,8 @@
 "reviewed": false
 }
 ]
-}
+},
+"leads_judged": true
 },
 {
 "code": "III.F.3",
@@ -1382,7 +1412,8 @@
 "reviewed": false
 }
 ]
-}
+},
+"leads_judged": true
 },
 {
 "code": "III.F.4",
@@ -1465,7 +1496,8 @@
 "reviewed": false
 }
 ]
-}
+},
+"leads_judged": true
 },
 {
 "code": "III.F.5",
@@ -1491,7 +1523,8 @@
 "Organization": 1,
 "Individual": 0
 },
-"leads": {}
+"leads": {},
+"leads_judged": true
 },
 {
 "code": "III.G",
@@ -1546,7 +1579,8 @@
 "reviewed": false
 }
 ]
-}
+},
+"leads_judged": true
 },
 {
 "code": "III.H",
@@ -1586,7 +1620,8 @@
 "reviewed": false
 }
 ]
-}
+},
+"leads_judged": true
 },
 {
 "code": "IV.A",
@@ -1680,7 +1715,8 @@
 "reviewed": false
 }
 ]
-}
+},
+"leads_judged": true
 },
 {
 "code": "IV.B",
@@ -1705,7 +1741,8 @@
 "Organization": 0,
 "Individual": 0
 },
-"leads": {}
+"leads": {},
+"leads_judged": false
 },
 {
 "code": "IV.C",
@@ -1758,7 +1795,8 @@
 "reviewed": false
 }
 ]
-}
+},
+"leads_judged": true
 },
 {
 "code": "V",
@@ -1856,7 +1894,8 @@
 "reviewed": false
 }
 ]
-}
+},
+"leads_judged": true
 },
 {
 "code": "VI",
@@ -1982,7 +2021,8 @@
 "reviewed": false
 }
 ]
-}
+},
+"leads_judged": true
 },
 {
 "code": "VII",
@@ -2110,7 +2150,8 @@
 "reviewed": false
 }
 ]
-}
+},
+"leads_judged": true
 },
 {
 "code": "VIII.A",
@@ -2186,7 +2227,8 @@
 "reviewed": false
 }
 ]
-}
+},
+"leads_judged": true
 },
 {
 "code": "VIII.B",
@@ -2253,7 +2295,8 @@
 "reviewed": false
 }
 ]
-}
+},
+"leads_judged": true
 },
 {
 "code": "VIII.C",
@@ -2384,7 +2427,8 @@
 "reviewed": false
 }
 ]
-}
+},
+"leads_judged": true
 },
 {
 "code": "VIII.D",
@@ -2452,7 +2496,8 @@
 "reviewed": false
 }
 ]
-}
+},
+"leads_judged": true
 },
 {
 "code": "VIII.E",
@@ -2484,7 +2529,8 @@
 "Organization": 0,
 "Individual": 0
 },
-"leads": {}
+"leads": {},
+"leads_judged": false
 },
 {
 "code": "VIII.F",
@@ -2565,7 +2611,8 @@
 "reviewed": false
 }
 ]
-}
+},
+"leads_judged": true
 },
 {
 "code": "VIII.G",
@@ -2691,7 +2738,8 @@
 "reviewed": false
 }
 ]
-}
+},
+"leads_judged": true
 },
 {
 "code": "VIII.H",
@@ -2717,7 +2765,8 @@
 "Organization": 0,
 "Individual": 1
 },
-"leads": {}
+"leads": {},
+"leads_judged": true
 },
 {
 "code": "VIII.I",
@@ -2750,7 +2799,51 @@
 "Organization": 1,
 "Individual": 7
 },
-"leads": {}
+"leads": {
+"Oppose": [
+{
+"rank": 1,
+"version": "Life-only exception excludes non-viable pregnancies causing permanent disability",
+"lead": "VA-2025-VHA-0073-16828",
+"excerpt": "The exception for treatment \"when a physician certifies that the life of the mother would be endangered if the fetus were carried to term\" also seems very narrow; for example, it would not apply to cases where the fetus is certainly non-viable and will not survive after birth, but continuing the pregnancy to term would be likely to result in the mother's permanent physical disability. If this is not intended, the rule should be expanded to also cover the risk of permanent physical injury/disability.",
+"also": [],
+"beats_next": "It identifies a harm short of death, permanent disability, that VA's life-endangerment standard and its response never reach, whereas the next version's concern about waiting until sepsis is at least partly met by VA's promise to treat life-threatening circumstances.",
+"va_quote": "",
+"va_answers": false,
+"va_note": "VA's passage only restates the life-endangerment certification and addresses life-threatening circumstances; it never answers a risk of permanent physical disability that falls short of endangering life.",
+"reviewed": false
+},
+{
+"rank": 2,
+"version": "Certify non-viability so termination precedes sepsis emergencies",
+"lead": "VA-2025-VHA-0073-14507",
+"excerpt": "If this rule wants to consider the safety of mothers, then the rule should be clarified to add that the exclusion for abortion does not apply when a physician certifies that a fetus is non-viable. It is in the interest of the safety of mothers that non-viable pregnancies be terminated either medically or surgically (e.g., induced miscarriage), should the mother choose to do so in consultation with her physician. It is better to allow this option as a choice prior to the mother's potential appearance in the emergency room with sepsis, and the VA should provide this medical benefit as part of its benefits package.",
+"also": [],
+"beats_next": "It attacks how the life exception VA relies on actually operates in time, which VA answers only by restating that exception, whereas the next version's reading of \"needed\" is met head-on by VA's reliance on the Secretary's discretion under section 1710.",
+"va_quote": "Furthermore, as explained in the proposed rule and throughout this final rule, VA will continue to provide care to pregnant women in life-threatening circumstances pursuant to the medical benefits package, even if such care may result in the termination of a pregnancy.",
+"va_answers": true,
+"va_note": "VA covers care once circumstances are life-threatening but does not address terminating a non-viable pregnancy before it reaches that point.",
+"reviewed": false
+},
+{
+"rank": 3,
+"version": "Undefined \"needed\" should follow clinical judgment and standards",
+"lead": "VA-2025-VHA-0073-8110",
+"excerpt": "The justification in the SUPPLEMENTARY INFORMATION section claims that abortion services are not considered \"needed\" under section 1710 of title 38. But the term \"needed\" is not defined, and it should be interpreted through clinical judgment based on current medical standards. There are many situations where abortion care is medically warranted, and this regulation fails to account for that reality.",
+"also": [
+"VA-2025-VHA-0073-4591",
+"VA-2025-VHA-0073-8619",
+"VA-2025-VHA-0073-3666"
+],
+"beats_next": "",
+"va_quote": "VA does not believe it is necessary to define or interpret ``needed'' as the commenters suggest, as ``needed'' is specifically left to the discretion of the Secretary in section 1710.",
+"va_answers": true,
+"va_note": "VA answers directly: it agrees the term is undefined but treats that as leaving it to the Secretary's discretion, which the commenters do not rebut.",
+"reviewed": false
+}
+]
+},
+"leads_judged": true
 },
 {
 "code": "IV",
@@ -2802,7 +2895,8 @@
 "reviewed": false
 }
 ]
-}
+},
+"leads_judged": true
 },
 {
 "code": "O1",
@@ -2839,7 +2933,8 @@
 "reviewed": false
 }
 ]
-}
+},
+"leads_judged": true
 },
 {
 "code": "O2",
@@ -2902,7 +2997,8 @@
 "reviewed": false
 }
 ]
-}
+},
+"leads_judged": true
 },
 {
 "code": "O3",
@@ -2924,7 +3020,23 @@
 "Organization": 0,
 "Individual": 1
 },
-"leads": {}
+"leads": {
+"Oppose": [
+{
+"rank": 1,
+"version": "Military assigns service members to states lacking rights",
+"lead": "VA-2025-VHA-0073-14488",
+"excerpt": "Furthermore, however, the intent to regulate elective abortions is fundamentally flawed in that military rules dictate the state in which a service member will serve, and the incidence of sexual assault is a major problem (https://www.perplexity.ai/search/provide-statistics-on-sexual-a-vUrVpkwARQivVz9Q6JPrKA). It is a disservice and a denial of individual civil rights to mandate the location of a person to a place where they do not have rights.",
+"also": [],
+"beats_next": "",
+"va_quote": "",
+"va_answers": false,
+"va_note": "Outside VA's response outline: VA's final rule has no heading answering the argument that the military dictates where service members live.",
+"reviewed": false
+}
+]
+},
+"leads_judged": true
 },
 {
 "code": "O4",
@@ -2946,7 +3058,8 @@
 "Organization": 1,
 "Individual": 0
 },
-"leads": {}
+"leads": {},
+"leads_judged": true
 },
 {
 "code": "O5",
@@ -3001,7 +3114,8 @@
 "reviewed": false
 }
 ]
-}
+},
+"leads_judged": true
 },
 {
 "code": "S1",
@@ -3062,7 +3176,8 @@
 "reviewed": false
 }
 ]
-}
+},
+"leads_judged": true
 },
 {
 "code": "S2",
@@ -3099,7 +3214,8 @@
 "reviewed": false
 }
 ]
-}
+},
+"leads_judged": true
 },
 {
 "code": "S3",
@@ -3148,7 +3264,8 @@
 "reviewed": false
 }
 ]
-}
+},
+"leads_judged": true
 },
 {
 "code": "S4",
@@ -3199,7 +3316,8 @@
 "reviewed": false
 }
 ]
-}
+},
+"leads_judged": true
 },
 {
 "code": "OTHER",
@@ -3288,7 +3406,8 @@
 "reviewed": false
 }
 ]
-}
+},
+"leads_judged": true
 }
 ]
 }
