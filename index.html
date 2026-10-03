@@ -1258,23 +1258,26 @@ const LEGEND='<div class="legend" aria-label="Position colours">'+
   '<span><i class="k-neu"></i>Neutral or technical</span><span><i class="k-sup"></i>Support</span></div>';
 
 /* ---------- view: by comment ---------- */
-function argChips(r){
-  const as=r.arguments||[]; if(!as.length) return "";
-  const on=sel.arg||new Set();
-  const ordered=[...as].sort((a,b)=>(on.has(b)?1:0)-(on.has(a)?1:0));
-  const head=ordered.slice(0,3), rest=ordered.length-head.length;   // OMB: 3 per family, then "+n"
-  return '<span class="runs"><span class="run" data-f="arg"><span class="runlabel">Arguments</span>'+
-    head.map(c=>'<a class="tg'+(on.has(c)?" hit":"")+'" href="#argument/'+encodeURIComponent(c)+'" title="'+
-      esc(argName(c))+'">'+esc(ARG[c]?shortLabel(ARG[c]):c)+"</a>").join("")+
-    (rest>0?'<span class="tg tg-more">+'+rest+"</span>":"")+
-    "</span></span>";
+/* collapsed card: who they are and what they filed; arguments stay on the open card and the
+   argument pages (they crowded the list) */
+const ROW=[["sub","Type"],["filing","Filing"],["ev","Evidence"]];
+function tagRuns(r){
+  return ROW.map(([k,label])=>{
+    if(k!=="sub"&&!isCls(r)) return "";
+    const vs=vals(r,k); if(!vs.length) return "";
+    const on=sel[k]||new Set();
+    const ordered=[...vs].sort((a,b)=>(on.has(b)?1:0)-(on.has(a)?1:0));
+    const head=ordered.slice(0,3), rest=ordered.length-head.length;
+    return '<span class="run" data-f="'+FCOL[k]+'"><span class="runlabel">'+label+"</span>"+
+      head.map(v=>'<span class="tg'+(on.has(v)?" hit":"")+'">'+esc(dispVal(k,v))+"</span>").join("")+
+      (rest>0?'<span class="tg tg-more">+'+rest+"</span>":"")+"</span>";
+  }).join("");
 }
 function metaRow(r){
   const parts=[];
   if((r.va_responds||[]).length) parts.push('<span class="vatag" title="'+esc(r.va_responds.map(v=>v.code+": "+v.sentence).join("\n"))+
     '">VA responds to this comment</span>');
   if(r.kind) parts.push(esc(r.kind));
-  if(r.subtype&&r.subtype!==r.kind) parts.push(esc(r.subtype));
   parts.push(esc(fdate(r.date)));
   parts.push('<span class="mono">'+esc(r.id)+"</span>");
   if(r.family_size>1) parts.push('<span class="fam-n">sent by '+fmt(r.family_size)+" people</span>");
@@ -1303,7 +1306,7 @@ function card(r){
     '<div class="ehead"><span class="stripe"></span><span class="emain">'+
       '<button type="button" class="orgbtn" data-open="'+esc(r.id)+'">'+markAll(name,qtoks(qs.comments))+"</button>"+
       '<span class="erow">'+metaRow(r)+"</span>"+
-      (isCls(r)?argChips(r):"")+
+      (()=>{const t=tagRuns(r); return t?'<span class="runs">'+t+"</span>":"";})()+
       excerpt(r)+
     "</span>"+
     '<span class="easide">'+badge(r)+
@@ -1324,9 +1327,10 @@ function quoteToggle(r){
       '<blockquote class="q">&ldquo;'+esc(r.argument_quotes[c])+"&rdquo;</blockquote></li>").join("")+"</ul></div>";
 }
 function renderComments(){
-  const isD25=r=>(r.attributes||[]).includes("D25 partner");
+  const isD25=r=>(r.attributes||[]).includes("D25 partner"), isPend=r=>r.status==="pending";
+  /* silent: classification-pending filings last, then D25 partners first, otherwise unchanged */
   const rows=DOCS.filter(r=>facetPass(r,null)&&textPass(r,qs.comments))
-    .map((r,i)=>[r,i]).sort((a,b)=>(isD25(b[0])-isD25(a[0]))||(a[1]-b[1])).map(x=>x[0]);   // D25 partners first, otherwise unchanged
+    .map((r,i)=>[r,i]).sort((a,b)=>(isPend(a[0])-isPend(b[0]))||(isD25(b[0])-isD25(a[0]))||(a[1]-b[1])).map(x=>x[0]);
   el("count").innerHTML='<span class="num">'+fmt(rows.length)+"</span> <span>of "+fmt(DOCS.length)+" filings</span>";
   const page=rows.slice(0,shown);
   let html=page.length?page.map(card).join(""):
