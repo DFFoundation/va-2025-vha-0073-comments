@@ -1741,8 +1741,23 @@
 "Organization": 0,
 "Individual": 0
 },
-"leads": {},
-"leads_judged": false
+"leads": {
+"Oppose": [
+{
+"rank": 1,
+"version": "CHAMPVA covers elective services, so 'not needed' is inconsistent",
+"lead": "VA-2025-VHA-0073-2601",
+"excerpt": "Under CHAMPVA and VA medical coverage, many covered services credibly fall under the not \"needed\" category defined by this proposed rule because they are elective. In fact, the following are examples of elective services and procedures provided by CHAMPVA medical coverage: wigs or hairpieces, penile implants, weight loss medication, genetic testing, tubal ligations, and vasectomies (CHAMPVA Guidebook, 2025). There is no specific ban on elective services or procedures under VA guidelines, so it is unclear why abortions and abortion counseling should be excluded, especially when the service is infrequently performed.",
+"also": [],
+"beats_next": "",
+"va_quote": "Second, VA understands that the commenter may consider certain care provided in CHAMPVA as not needed, but VA has determined such care was medically necessary and appropriate pursuant to its authority in 38 U.S.C. 1781 and 38 CFR 17.270(b).",
+"va_answers": true,
+"va_note": "VA asserts discretion and labels the listed services medically necessary, but does not explain why abortion is treated differently from those elective services.",
+"reviewed": false
+}
+]
+},
+"leads_judged": true
 },
 {
 "code": "IV.C",
@@ -2529,8 +2544,35 @@
 "Organization": 0,
 "Individual": 0
 },
-"leads": {},
-"leads_judged": false
+"leads": {
+"Oppose": [
+{
+"rank": 1,
+"version": "Certification leaves physicians unprotected, inducing fearful delay",
+"lead": "VA-2025-VHA-0073-14488",
+"excerpt": "This regulation is therefore defective in that it provides insufficient clarity to the freedom and authority of each physician to make the determination without challenge, and as such, promotes over-compliance out of fear, and put women's lives and fertility in jeopardy. It misleads to create the impression that women will not be harmed because the decision of the physician will protect them, while the regulation does nothing to actually ensure that physicians are clearly in a position to to exercise that authority.",
+"also": [],
+"beats_next": "It targets the gap between the rule's reliance on physician judgment and the absence of any protection for that judgment against challenge, which VA's statement that it does not intend a burden leaves unanswered, whereas the next version leans on the Hyde Amendment, which VA disposes of outright as inapplicable to VA.",
+"va_quote": "VA does not intend the certification requirement under the life endangerment exception for CHAMPVA to be a burden on VA or authorized non-VA physicians, and VA notes that this certification requirement was in place prior to September 9, 2022 for CHAMPVA.",
+"va_answers": true,
+"va_note": "VA states its intent and the pre-2022 history but says nothing about protecting physicians from state or federal challenge, which is the core of this version.",
+"reviewed": false
+},
+{
+"rank": 2,
+"version": "Unclear certification contradicts Hyde and chills emergency miscarriage care",
+"lead": "VA-2025-VHA-0073-19922",
+"excerpt": "Even more worrying is the requirement that women must have a medical professional certify that their life is in danger before performing an abortion. This certification process is not made clear in the proposed rule and seems to run contrary to the availability of the procedure in these instances as dictated in the Hyde Amendment. Should a doctor order that a woman receive an abortion due to hemorrhage, a severe birth defect, or a miscarriage, that order should be self-evident. If a doctor must certify that this abortion would save the life of the mother, it will have a chilling effect on doctors practicing medicine and providing the best care possible for their patients.",
+"also": [],
+"beats_next": "",
+"va_quote": "Regardless of whether these commenters meant to refer to either or both programs, as explained previously in this rule, the Hyde Amendment does not apply to VA.",
+"va_answers": true,
+"va_note": "VA rejects the Hyde premise directly, but answers the lack-of-clarity and chilling-effect points only by saying the treating physician certifies and pre-2022 standards apply.",
+"reviewed": false
+}
+]
+},
+"leads_judged": true
 },
 {
 "code": "VIII.F",
