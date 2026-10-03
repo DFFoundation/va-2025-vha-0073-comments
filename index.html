@@ -1258,8 +1258,8 @@ const LEGEND='<div class="legend" aria-label="Position colours">'+
   '<span><i class="k-neu"></i>Neutral or technical</span><span><i class="k-sup"></i>Support</span></div>';
 
 /* ---------- view: by comment ---------- */
-/* collapsed card: who they are and what they filed; arguments stay on the open card and the
-   argument pages (they crowded the list) */
+/* collapsed card: who they are, what they filed, and the first two arguments (all of them crowded
+   the list; the open card and the argument pages have the rest) */
 const ROW=[["sub","Type"],["filing","Filing"],["ev","Evidence"]];
 function tagRuns(r){
   return ROW.map(([k,label])=>{
@@ -1271,7 +1271,18 @@ function tagRuns(r){
     return '<span class="run" data-f="'+FCOL[k]+'"><span class="runlabel">'+label+"</span>"+
       head.map(v=>'<span class="tg'+(on.has(v)?" hit":"")+'">'+esc(dispVal(k,v))+"</span>").join("")+
       (rest>0?'<span class="tg tg-more">+'+rest+"</span>":"")+"</span>";
-  }).join("");
+  }).join("")+argRun(r);
+}
+/* a taste of the arguments: two, then an ellipsis when there are more */
+function argRun(r){
+  const as=isCls(r)?(r.arguments||[]):[]; if(!as.length) return "";
+  const on=sel.arg||new Set();
+  const ordered=[...as].sort((a,b)=>(on.has(b)?1:0)-(on.has(a)?1:0));
+  const head=ordered.slice(0,2), rest=ordered.length-head.length;
+  return '<span class="run" data-f="arg"><span class="runlabel">Arguments</span>'+
+    head.map(c=>'<a class="tg'+(on.has(c)?" hit":"")+'" href="#argument/'+encodeURIComponent(c)+'" title="'+
+      esc(argName(c))+'">'+esc(ARG[c]?shortLabel(ARG[c]):c)+"</a>").join("")+
+    (rest>0?'<span class="tg tg-more" title="'+rest+' more">&hellip;</span>':"")+"</span>";
 }
 function metaRow(r){
   const parts=[];
