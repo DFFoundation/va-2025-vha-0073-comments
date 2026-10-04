@@ -1129,7 +1129,6 @@ function buildRail(){
     box.innerHTML='<div class="famhead"><span class="cap">'+esc(fam.label)+'</span></div>';
     fam.keys.forEach(k=>{
       const d=document.createElement("details"); d.className="fct"; d.dataset.key=k; d.dataset.f=FCOL[k];
-      if(k==="kind"||k==="pos"||k==="sub") d.open=true;
       d.innerHTML='<summary><span class="fdot"></span><span>'+esc(LABEL[k])+'</span><span class="nsel" hidden></span>'+
         '<span class="tw">&#9654;</span></summary><div class="fbody">'+
         '<input class="ffilter" placeholder="Filter&hellip;" aria-label="Filter '+esc(LABEL[k])+'" hidden>'+
